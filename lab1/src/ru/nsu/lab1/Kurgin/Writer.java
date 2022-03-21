@@ -35,8 +35,8 @@ public class Writer implements AutoCloseable {
         }
     }
 
-    public void writeList(List<Map.Entry<String, Integer>> list, int counterWords) throws IOException {
-        for (Map.Entry<String, Integer> element : list) {
+    public void writeList(List<Pair> list, int counterWords) throws IOException {
+        for (Pair element : list) {
             bufWriter.write(element.getKey() + " ; " + element.getValue().toString() + " ; "
                     + String.valueOf(element.getValue().floatValue() / counterWords * 100) + '\n');
         }

@@ -21,11 +21,11 @@ public class Scanner {
         }
     }
 
-    public List<Map.Entry<String, Integer>> getListWords() {
-        List<Map.Entry<String, Integer>> listWords = new ArrayList<>(mapWorld.entrySet());
-        listWords.sort(new Comparator<Map.Entry<String, Integer>>() {
+    public List<Pair> getListWords() {
+        List<Pair> listWords = new ArrayList<>(mapWorld.entrySet().stream().map(x ->  new Pair(x.getKey(), x.getValue())).toList());
+        listWords.sort(new Comparator<Pair>() {
             @Override
-            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+            public int compare(Pair o1, Pair o2) {
                 int dif = o1.getValue() - o2.getValue();
                 return Integer.compare(0, dif);
             }
