@@ -1,9 +1,0 @@
-+ com.company.Workers.Sum
-* com.company.Workers.Multi
-- com.company.Workers.Minus
-DEFINE com.company.Workers.Define
-/ com.company.Workers.Div
-POP com.company.Workers.Pop
-PRINT com.company.Workers.Print
-PUSH com.company.Workers.Push
-SQRT com.company.Workers.Sqrt
