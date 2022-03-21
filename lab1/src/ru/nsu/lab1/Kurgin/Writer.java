@@ -1,14 +1,13 @@
-package com.company;
+package ru.nsu.lab1.Kurgin;
 
 import java.io.*;
+import java.security.KeyPair;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.company.Constants.*;
-
-public class Writer {
+public class Writer implements AutoCloseable {
     private BufferedWriter bufWriter;
 
     Writer() {
@@ -17,13 +16,12 @@ public class Writer {
 
     private void checkNameFileOut(String nameFile) {
         try {
-            Pattern pattern = Pattern.compile(RegexFileNameOut);
+            Pattern pattern = Pattern.compile(Constants.RegexFileNameOut);
             Matcher matcher = pattern.matcher(nameFile);
             if (!matcher.find()) {
-                throw(new MyExeption(ErrorNameFile));
+                throw (new AnalyzerExeption(Constants.ErrorNameFile));
             }
-        }
-        catch (MyExeption exeption) {
+        } catch (AnalyzerExeption exeption) {
             exeption.printStackTrace();
         }
     }
@@ -37,19 +35,16 @@ public class Writer {
         }
     }
 
-    public void closeFileIn() {
-        try {
-            bufWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void writeList(List<Map.Entry<String, Integer>> list, int counterWords) throws IOException {
         for (Map.Entry<String, Integer> element : list) {
             bufWriter.write(element.getKey() + " ; " + element.getValue().toString() + " ; "
                     + String.valueOf(element.getValue().floatValue() / counterWords * 100) + '\n');
         }
+    }
+
+    @Override
+    public void close() throws Exception {
+        bufWriter.close();
     }
 }
 

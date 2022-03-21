@@ -1,4 +1,4 @@
-package com.company;
+package ru.nsu.lab1.Kurgin;
 
 public class Constants {
     static final int PositionNameFileIn = 0;

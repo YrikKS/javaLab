@@ -1,4 +1,4 @@
-package com.company;
+package ru.nsu.lab1.Kurgin;
 
 import java.util.*;
 import java.util.regex.Matcher;

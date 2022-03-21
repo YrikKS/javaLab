@@ -1,4 +1,4 @@
-package com.company;
+package ru.nsu.lab1.Kurgin;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class Reader {
+public class Reader implements AutoCloseable {
     private BufferedReader bufReader;
 
     Reader() {
@@ -20,9 +20,9 @@ public class Reader {
             Pattern pattern = Pattern.compile(Constants.RegexFileNameIn);
             Matcher matcher = pattern.matcher(nameFile);
             if (!matcher.find()) {
-                throw (new MyExeption(Constants.ErrorNameFile));
+                throw (new AnalyzerExeption(Constants.ErrorNameFile));
             }
-        } catch (MyExeption exeption) {
+        } catch (AnalyzerExeption exeption) {
             exeption.printStackTrace();
         }
     }
@@ -36,15 +36,6 @@ public class Reader {
         }
     }
 
-    public void closeFileIn() {
-        try {
-            bufReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public String readStr() {
         try {
             return bufReader.readLine();
@@ -54,4 +45,8 @@ public class Reader {
         return null;
     }
 
+    @Override
+    public void close() throws Exception {
+        bufReader.close();
+    }
 }
