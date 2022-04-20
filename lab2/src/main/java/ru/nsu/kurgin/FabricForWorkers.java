@@ -52,6 +52,7 @@ public class FabricForWorkers {
             }
         } catch (Throwable e) {
             e.printStackTrace();
+            throw (new FabricExceptions(Constants.EXEPTION_FABRIC_CONFIGURATION_FILE));
         }
     }
 
