@@ -10,6 +10,8 @@ public class GameModel extends Observable {
     boolean versionIsInstalled = true;
 
     public void setOrDellNumInCell(Integer row, Integer col, Integer num) {
+        if (gameBoard.isCellHaveNameInStartedBoard(row, col))
+            return;
         if (num == -1) {
             gameBoard.dellAllVersionInCell(row, col);
             gameBoard.dellNumbInCell(row, col);
@@ -64,6 +66,9 @@ public class GameModel extends Observable {
     }
 
     public void setOrDelOneVersionInCell(Integer row, Integer col, Integer versionNum) {
+        if (gameBoard.isCellHaveNameInStartedBoard(row, col))
+            return;
+//        if (gameBoard.getFinalGameBoardCell())
         if (gameBoard.getVersionCell(row, col).get(versionNum) == versionNum)
             gameBoard.dellOneVersionInCell(row, col, versionNum);
         else

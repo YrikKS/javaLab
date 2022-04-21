@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import ru.nsu.kurgin.lab3.sudoku.Constatnts;
 import ru.nsu.kurgin.lab3.sudoku.obeserver.Observer;
@@ -60,6 +61,10 @@ public class GameViewer implements Observer {
             for (int j = 0; j < 9; j++) {
                 Vector<Integer> versionNums = gameModel.getVersionNum(i, j);
                 if (gameModel.getNum(i, j) != 0 && gameModel.getNum(i, j) != null) {
+                    if (!gameModel.gameBoard.isCellHaveNameInStartedBoard(i, j)) {
+                        ((Text)((GridPane)((AnchorPane)lists.get(i * 9 + j)).getChildren().get(0)).getChildren().get(0)).setFont(Font.font("Lucida Bright Demibold", 38));
+                        ((Text)((GridPane)((AnchorPane)lists.get(i * 9 + j)).getChildren().get(0)).getChildren().get(0)).setTranslateX(0);
+                    }
                     ((Text) (((GridPane) ((AnchorPane) lists.get(i * 9 + j)).getChildren().get(0)).getChildren().get(0))).setText(String.valueOf(gameModel.getNum(i, j)));
                     for (int k = 1; k < 10; k++)
                         ((Text) (((GridPane) ((AnchorPane) lists.get(i * 9 + j)).getChildren().get(0)).getChildren().get(k))).setText(null);

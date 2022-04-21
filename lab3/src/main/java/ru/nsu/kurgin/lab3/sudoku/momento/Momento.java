@@ -16,8 +16,8 @@ public class Momento {
         return vectorModifiedVersionNumber.size();
     }
 
-    public void addVersionInVector(Integer row, Integer col, Integer versionNum, Integer newVersionNum) {
-        vectorModifiedVersionNumber.add(new ModifiedVersionNumber(row, col, versionNum, versionNum, newVersionNum));
+    public void addVersionInVector(Integer row, Integer col, Integer versionNum, Integer positionNum, Integer newVersionNum) {
+        vectorModifiedVersionNumber.add(new ModifiedVersionNumber(row, col, positionNum, versionNum, newVersionNum));
     }
 
     public ModifiedMainNumber getModifiedMainNumber() {

@@ -145,14 +145,6 @@
     <top>
         <AnchorPane prefHeight="45.0" prefWidth="405.0" snapToPixel="false" style="-fx-background-color: #018681;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="buttonForward" fitHeight="35.0" fitWidth="48.0" layoutX="45.0" layoutY="5.0" onMouseClicked="#forward" opacity="0.75" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@..\..\..\..\..\..\..\source\ButtonV1.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
             <ImageView fx:id="buttonBack" fitHeight="35.0" fitWidth="48.0" layoutX="6.0" layoutY="5.0" onMouseClicked="#back" opacity="0.75" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@..\..\..\..\..\..\..\source\ButtonBackV1.png" />
@@ -202,7 +194,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Text fx:id="firstBLockMainNumber" boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="7" textAlignment="CENTER" textOrigin="TOP" translateX="-3.0" translateY="-1.0" wrappingWidth="52.000000000000114" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Text fx:id="firstBLockMainNumber" boundsType="VISUAL" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="7" textAlignment="CENTER" textOrigin="CENTER" translateX="-3.0" translateY="-1.0" wrappingWidth="52.000000000000114" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="Lucida Bright" size="44.0" />
                            </font>
@@ -586,7 +578,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Text fx:id="firstBLockMainNumber12" boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="7" textAlignment="CENTER" textOrigin="TOP" translateX="-3.0" translateY="-1.0" wrappingWidth="52.000000000000114" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Text fx:id="firstBLockMainNumber12" boundsType="VISUAL" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="7" textAlignment="CENTER" textOrigin="TOP" translateX="-3.0" translateY="-1.0" wrappingWidth="52.000000000000114" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="Lucida Bright" size="44.0" />
                            </font>
