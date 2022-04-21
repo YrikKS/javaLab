@@ -13,6 +13,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+// TODO mainmenu
+// TODO stats
+// TODO time
+// TODO uncorrect num placed
+// TODO mb rework generator nums
+
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
