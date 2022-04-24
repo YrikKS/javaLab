@@ -11,20 +11,20 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import ru.nsu.kurgin.lab3.sudoku.Constatnts;
+import ru.nsu.kurgin.lab3.sudoku.TimerObserver.TimerObserver;
 import ru.nsu.kurgin.lab3.sudoku.obeserver.Observer;
+import ru.nsu.kurgin.lab3.sudoku.time.ConvertorSecondInNormal;
 
 import java.util.Vector;
 
-public class GameViewer implements Observer {
-
-    @FXML
-    private ImageView buttonForward;
-    @FXML
-    private ImageView buttonBack;
-
+public class GameViewer implements TimerObserver, Observer {
     private GameModel gameModel;
     private GameController gameController;
 
+    @FXML
+    private ImageView buttonBack;
+    @FXML
+    public Text timerText;
     @FXML
     private ToggleButton buttonOne;
 
@@ -36,8 +36,10 @@ public class GameViewer implements Observer {
     public void setGameModelAndController(GameModel model, GameController controller) {
         gameModel = model;
         gameController = controller;
+        gameController.startTimer();
         model.update();
     }
+
 
     @FXML
     void clickMainPane(MouseEvent event) {
@@ -55,15 +57,20 @@ public class GameViewer implements Observer {
     }
 
     @Override
+    public void timerUpdate(Integer seconds) {
+        timerText.setText(ConvertorSecondInNormal.convertSecond(seconds));
+    }
+
+    @Override
     public void update() {
         ObservableList<Node> lists = mainPane.getChildren();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 Vector<Integer> versionNums = gameModel.getVersionNum(i, j);
                 if (gameModel.getNum(i, j) != 0 && gameModel.getNum(i, j) != null) {
-                    if (!gameModel.gameBoard.isCellHaveNameInStartedBoard(i, j)) {
-                        ((Text)((GridPane)((AnchorPane)lists.get(i * 9 + j)).getChildren().get(0)).getChildren().get(0)).setFont(Font.font("Lucida Bright Demibold", 38));
-                        ((Text)((GridPane)((AnchorPane)lists.get(i * 9 + j)).getChildren().get(0)).getChildren().get(0)).setTranslateX(0);
+                    if (!gameModel.isCellHaveNameInStartedBoard(i, j)) {
+                        ((Text) ((GridPane) ((AnchorPane) lists.get(i * 9 + j)).getChildren().get(0)).getChildren().get(0)).setFont(Font.font("Lucida Bright Demibold", 38));
+                        ((Text) ((GridPane) ((AnchorPane) lists.get(i * 9 + j)).getChildren().get(0)).getChildren().get(0)).setTranslateX(0);
                     }
                     ((Text) (((GridPane) ((AnchorPane) lists.get(i * 9 + j)).getChildren().get(0)).getChildren().get(0))).setText(String.valueOf(gameModel.getNum(i, j)));
                     for (int k = 1; k < 10; k++)
@@ -96,6 +103,17 @@ public class GameViewer implements Observer {
         }
     }
 
+    @FXML
+    void ExitButton(MouseEvent event) {
+        gameController.clickInExitButton();
+    }
+
+    @FXML
+    void clickInBarWithNum(MouseEvent event) {
+        toolNumber = 1;
+        gameController.clickOnToolNumb(toolNumber);
+        update();
+    }
 
     @FXML
     void click1(MouseEvent event) {
@@ -109,12 +127,6 @@ public class GameViewer implements Observer {
         toolNumber = 2;
         gameController.clickOnToolNumb(toolNumber);
         update();
-    }
-
-    @FXML
-    void forward(MouseEvent event) {
-        System.out.println("ClickInForward");
-        gameController.clickingOnTheNextActionButton();
     }
 
     @FXML
@@ -189,5 +201,11 @@ public class GameViewer implements Observer {
     public void addMark(MouseEvent mouseEvent) {
         gameController.clickInDelOrSetAllVersion();
         update();
+    }
+
+    public void clickInBarWithButton(MouseEvent mouseEvent) {
+    }
+
+    public void mouseMoveInBarWithButton(MouseEvent mouseEvent) {
     }
 }

@@ -15,11 +15,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="600.0" prefWidth="405.0" snapToPixel="false" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.kurgin.lab3.sudoku.game.GameViewer">
+<BorderPane prefHeight="600.0" prefWidth="406.0" snapToPixel="false" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.kurgin.lab3.sudoku.game.GameViewer">
     <bottom>
         <AnchorPane prefHeight="100.0" prefWidth="405.0" style="-fx-background-color: #018681;" BorderPane.alignment="CENTER">
             <children>
-                <GridPane alignment="TOP_CENTER" layoutX="-3.0" layoutY="-2.0" prefHeight="203.0" prefWidth="405.0">
+                <GridPane alignment="TOP_CENTER" layoutX="-3.0" layoutY="-2.0" onMouseClicked="#clickInBarWithButton" onMouseMoved="#mouseMoveInBarWithButton" prefHeight="203.0" prefWidth="405.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -32,7 +32,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <ToggleButton fx:id="buttonOne" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click1" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20;" text="1" textAlignment="CENTER" textOverrun="CLIP">
+                        <ToggleButton fx:id="buttonOne" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click1" opacity="0.9" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-border-width: 1.5;" text="1" textAlignment="CENTER" textOverrun="CLIP">
                             <font>
                                 <Font name="Lucida Bright" size="40.0" />
                             </font>
@@ -43,7 +43,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                         </ToggleButton>
-                  <ToggleButton fx:id="buttonOne1" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click2" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20;" text="2" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.columnIndex="1">
+                  <ToggleButton fx:id="buttonOne1" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click2" opacity="0.9" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-border-width: 1.5;" text="2" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.columnIndex="1">
                      <font>
                         <Font name="Lucida Bright" size="40.0" />
                      </font>
@@ -51,7 +51,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ToggleButton>
-                  <ToggleButton fx:id="buttonOne11" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click3" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20;" text="3" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.columnIndex="2">
+                  <ToggleButton fx:id="buttonOne11" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click3" opacity="0.9" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-border-width: 1.5;" text="3" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.columnIndex="2">
                      <font>
                         <Font name="Lucida Bright" size="40.0" />
                      </font>
@@ -59,7 +59,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ToggleButton>
-                  <ToggleButton fx:id="buttonOne111" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click4" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20;" text="4" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.rowIndex="1">
+                  <ToggleButton fx:id="buttonOne111" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click4" opacity="0.9" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-border-width: 1.5;" text="4" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.rowIndex="1">
                      <font>
                         <Font name="Lucida Bright" size="40.0" />
                      </font>
@@ -67,7 +67,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ToggleButton>
-                  <ToggleButton fx:id="buttonOne1111" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click5" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20;" text="5" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <ToggleButton fx:id="buttonOne1111" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click5" opacity="0.9" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-border-width: 1.5;" text="5" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="Lucida Bright" size="40.0" />
                      </font>
@@ -75,7 +75,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ToggleButton>
-                  <ToggleButton fx:id="buttonOne11111" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click6" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20;" text="6" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <ToggleButton fx:id="buttonOne11111" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click6" opacity="0.9" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-border-width: 1.5;" text="6" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font name="Lucida Bright" size="40.0" />
                      </font>
@@ -83,7 +83,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ToggleButton>
-                  <ToggleButton fx:id="buttonOne111111" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click7" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20;" text="7" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.rowIndex="2">
+                  <ToggleButton fx:id="buttonOne111111" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click7" opacity="0.9" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-border-width: 1.5;" text="7" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.rowIndex="2">
                      <font>
                         <Font name="Lucida Bright" size="40.0" />
                      </font>
@@ -91,7 +91,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ToggleButton>
-                  <ToggleButton fx:id="buttonOne1111111" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click8" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20;" text="8" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <ToggleButton fx:id="buttonOne1111111" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click8" opacity="0.9" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-border-width: 1.5;" text="8" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="Lucida Bright" size="40.0" />
                      </font>
@@ -99,7 +99,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ToggleButton>
-                  <ToggleButton fx:id="buttonOne11111111" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click9" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20;" text="9" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <ToggleButton fx:id="buttonOne11111111" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#click9" opacity="0.9" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-border-width: 1.5;" text="9" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <font>
                         <Font name="Lucida Bright" size="40.0" />
                      </font>
@@ -107,7 +107,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ToggleButton>
-                  <ToggleButton fx:id="buttonOne2" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#dellButton" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20;" text="X" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                  <ToggleButton fx:id="buttonOne2" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#dellButton" opacity="0.9" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-border-width: 1.5;" text="X" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$Numb" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <font>
                         <Font name="Eras Bold ITC" size="41.0" />
                      </font>
@@ -115,7 +115,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ToggleButton>
-                  <ToggleButton fx:id="buttonOne112" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#clickNoNumber" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20;" text="Ø" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="3">
+                  <ToggleButton fx:id="buttonOne112" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#clickNoNumber" opacity="0.9" prefHeight="98.0" prefWidth="125.0" scaleX="0.5" scaleY="0.6" selected="true" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-border-width: 1.5;" text="Ø" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="3">
                      <toggleGroup>
                         <ToggleGroup fx:id="Numb1" />
                      </toggleGroup>
@@ -126,7 +126,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ToggleButton>
-                  <ToggleButton fx:id="buttonOne3" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#addMark" prefHeight="77.0" prefWidth="158.0" scaleX="0.5" scaleY="0.7" selected="true" style="-fx-background-color: white; -fx-background-radius: 20;" text=" 1 2 5 9" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                  <ToggleButton fx:id="buttonOne3" contentDisplay="CENTER" graphicTextGap="0.0" lineSpacing="3.0" mnemonicParsing="false" onMouseClicked="#addMark" opacity="0.9" prefHeight="77.0" prefWidth="158.0" scaleX="0.5" scaleY="0.7" selected="true" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20; -fx-border-width: 1.5;" text=" 1 2 5 9" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <font>
                         <Font name="Lucida Bright" size="14.0" />
                      </font>
@@ -147,12 +147,24 @@
          <children>
             <ImageView fx:id="buttonBack" fitHeight="35.0" fitWidth="48.0" layoutX="6.0" layoutY="5.0" onMouseClicked="#back" opacity="0.75" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@..\..\..\..\..\..\..\source\ButtonBackV1.png" />
+                  <Image url="@../../../../../../../source/ButtonBackV1.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="35.0" layoutX="370.0" layoutY="8.0" onMouseClicked="#ExitButton" opacity="0.75" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../source/ExitButton.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ImageView>
+            <Text fx:id="timerText" fill="WHITE" layoutX="172.0" layoutY="33.0" opacity="0.85" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00" textAlignment="CENTER">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
          </children></AnchorPane>
     </top>
    <center>
@@ -194,7 +206,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Text fx:id="firstBLockMainNumber" boundsType="VISUAL" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="7" textAlignment="CENTER" textOrigin="CENTER" translateX="-3.0" translateY="-1.0" wrappingWidth="52.000000000000114" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Text fx:id="firstBLockMainNumber" boundsType="VISUAL" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="7" textAlignment="CENTER" textOrigin="TOP" translateX="-3.0" translateY="-1.0" wrappingWidth="52.000000000000114" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="Lucida Bright" size="44.0" />
                            </font>

@@ -1,20 +1,42 @@
 package ru.nsu.kurgin.lab3.sudoku.game;
 
+import ru.nsu.kurgin.lab3.sudoku.HelloApplication;
+import ru.nsu.kurgin.lab3.sudoku.Statistic.StatisticsModel;
+import ru.nsu.kurgin.lab3.sudoku.gameEnd.GameEndLoader;
+import ru.nsu.kurgin.lab3.sudoku.menu.MenuLoader;
 import ru.nsu.kurgin.lab3.sudoku.obeserver.Observable;
+import ru.nsu.kurgin.lab3.sudoku.time.MyTimer;
 
-import java.util.List;
 import java.util.Vector;
 
-public class GameModel extends Observable {
-    GameBoard gameBoard = new GameBoard();
-    boolean versionIsInstalled = true;
+public class GameModel extends Observable implements InterfaceGameModel {
+    private GameBoard gameBoard = new GameBoard(); //TODO set private
+    private MyTimer myTimer;
+    private boolean versionIsInstalled = true;
 
+
+    public void setMyTimer(MyTimer myTimer) {
+        this.myTimer = myTimer;
+    }
+
+    public void loadMenu() {
+        myTimer.setActive(false);
+        HelloApplication.setNewLoader(new MenuLoader());
+    }
+
+    public boolean isCellHaveNameInStartedBoard(Integer row, Integer col) {
+        return gameBoard.isCellHaveNameInStartedBoard(row, col);
+    }
+
+    @Override
     public void setOrDellNumInCell(Integer row, Integer col, Integer num) {
         if (gameBoard.isCellHaveNameInStartedBoard(row, col))
             return;
         if (num == -1) {
-            gameBoard.dellAllVersionInCell(row, col);
-            gameBoard.dellNumbInCell(row, col);
+            if (gameBoard.getMainNum(row, col) == 0)
+                gameBoard.dellAllVersionInCell(row, col);
+            else
+                gameBoard.dellNumbInCell(row, col);
         } else if (num == 0) {
             notifyObservers();
             return;
@@ -23,37 +45,42 @@ public class GameModel extends Observable {
         else
             gameBoard.setNumberInCell(row, col, num);
         notifyObservers();
+
+        if (gameBoard.isGameEnd()) {
+            loadEndGame();
+            StatisticsModel.setNewStats(myTimer.getSeconds());
+        }
     }
 
-    public void cancellationOfAction(){
-        gameBoard.loadMomento(-1);
+    public void loadEndGame() {
+        myTimer.setActive(false);
+        GameEndLoader gameEndLoader = new GameEndLoader();
+        gameEndLoader.setTime(myTimer.getSeconds());
+        HelloApplication.setNewLoader(gameEndLoader);
+    }
+
+    @Override
+    public void cancellationOfAction() {
+        gameBoard.loadMomento();
         notifyObservers();
     }
 
-    public void bringBackTheLastAction(){
-        gameBoard.loadMomento(1);
-        notifyObservers();
-    }
-
-    public void delAllInCell(Integer row, Integer col) {
-        gameBoard.dellNumbInCell(row, col);
-        gameBoard.dellAllVersionInCell(row, col);
-        notifyObservers();
-    }
-
+    @Override
     public GameBoard getGameBoard() {
         return gameBoard;
     }
 
-    public Integer getNum(int row, int col) {
+    @Override
+    public Integer getNum(Integer row, Integer col) {
         return gameBoard.getFinalGameBoardCell(row, col);
     }
 
-    public Vector<Integer> getVersionNum(int row, int col) {
+    @Override
+    public Vector<Integer> getVersionNum(Integer row, Integer col) {
         return gameBoard.getVersionCell(row, col);
     }
 
-
+    @Override
     public void generateOrDelAllVersion() {
         if (versionIsInstalled) {
             gameBoard.dellVersionInCell();
@@ -65,6 +92,7 @@ public class GameModel extends Observable {
         notifyObservers();
     }
 
+    @Override
     public void setOrDelOneVersionInCell(Integer row, Integer col, Integer versionNum) {
         if (gameBoard.isCellHaveNameInStartedBoard(row, col))
             return;
@@ -76,19 +104,19 @@ public class GameModel extends Observable {
         notifyObservers();
     }
 
-    public GameModel() {
-
+    @Override
+    public void startTimer() {
+        Thread myThready = new Thread(myTimer);    //Создание потока "myThready"
+        myThready.start();
     }
 
-    public List<Integer> getFiled() {
-        return filed;
+    public void endTimer() {
+        myTimer.setActive(false);
     }
 
-    private List<Integer> filed;
-
+    @Override
     public void update() {
         notifyObservers();
     }
-
 
 }

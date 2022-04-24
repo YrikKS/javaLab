@@ -1,7 +1,7 @@
 package ru.nsu.kurgin.lab3.sudoku.game;
 
 public class GameController {
-    private GameModel gameModel = new GameModel();
+    private GameModel gameModel;
     private Integer pressedNumber = 0;
 
     public void setGameModel(GameModel gameModel) {
@@ -24,12 +24,15 @@ public class GameController {
         gameModel.generateOrDelAllVersion();
     }
 
-    public void clickingOnTheCancelActionButton (){
+    public void startTimer(){
+        gameModel.startTimer();
+    }
+
+    public void clickingOnTheCancelActionButton() {
         gameModel.cancellationOfAction();
     }
 
-    public void clickingOnTheNextActionButton (){
-        gameModel.bringBackTheLastAction();
+    public void clickInExitButton() {
+        gameModel.loadMenu();
     }
-
 }

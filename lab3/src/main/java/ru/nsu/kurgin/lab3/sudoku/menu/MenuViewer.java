@@ -1,4 +1,4 @@
-package ru.nsu.kurgin.lab3.sudoku;
+package ru.nsu.kurgin.lab3.sudoku.menu;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -7,8 +7,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
+import ru.nsu.kurgin.lab3.sudoku.obeserver.Observer;
 
-public class Menu {
+public class MenuViewer implements Observer {
+    private MenuModel menuModel;
+    private MenuController menuController;
+
+    public void setMenuModelAndController(MenuModel menuModel, MenuController menuController) {
+        this.menuModel = menuModel;
+        this.menuController = menuController;
+    }
 
     @FXML
     private ResourceBundle resources;
@@ -20,67 +28,67 @@ public class Menu {
     private Button buttonNewGame;
 
     @FXML
-    private Button buttonResumeGame;
-
-    @FXML
     private Button buttonStatistics;
 
     @FXML
-    void mouseClickedInNewGame(MouseEvent event) {
-        System.out.println("Click om New Game");
+    public Button buttonExit;
+
+    public void clickInButtonExit(MouseEvent mouseEvent) {
+        menuController.clickInExitGame();
     }
 
     @FXML
-    void mouseClickedInResume(MouseEvent event) {
-        System.out.println("Click om Resume");
+    public void mouseClickedInNewGame(MouseEvent event) {
+        menuController.clickInNewGame();
     }
 
     @FXML
-    void mouseClickedInStatistic(MouseEvent event) {
-        System.out.println("Click om Statictic");
+    public void mouseClickedInStatistic(MouseEvent event) {
+        menuController.clickInStatistics();
     }
 
     @FXML
-    void mouseExitNewGame(MouseEvent event) {
+    public void mouseExitNewGame(MouseEvent event) {
         buttonNewGame.setEffect(null);
     }
 
     @FXML
-    void mouseExitResume(MouseEvent event) {
-        buttonResumeGame.setEffect(null);
-    }
-
-    @FXML
-    void mouseExitStatistic(MouseEvent event) {
+    public void mouseExitStatistic(MouseEvent event) {
         buttonStatistics.setEffect(null);
     }
 
     @FXML
-    void mouseInNewGame(MouseEvent event) {
+    public void mouseExitExitButton(MouseEvent mouseEvent) {
+        buttonExit.setEffect(null);
+    }
+
+    @FXML
+    public void mouseInNewGame(MouseEvent event) {
         DropShadow shadow = new DropShadow();
         buttonNewGame.setEffect(shadow);
     }
 
     @FXML
-    void mouseInResume(MouseEvent event) {
-        DropShadow shadow = new DropShadow();
-        buttonResumeGame.setEffect(shadow);
-    }
-
-    @FXML
-    void mouseInStatistic(MouseEvent event) {
+    public void mouseInStatistic(MouseEvent event) {
         DropShadow shadow = new DropShadow();
         buttonStatistics.setEffect(shadow);
     }
 
+    public void mouseInExitButton(MouseEvent mouseEvent) {
+        DropShadow shadow = new DropShadow();
+        buttonExit.setEffect(shadow);
+    }
+
+
     @FXML
-    void initialize() {
-//        assert buttonNewGame != null : "fx:id=\"button_new_game\" was not injected: check your FXML file 'menu.fxml'.";
-//        assert buttonResumeGame != null : "fx:id=\"button_reusme_game\" was not injected: check your FXML file 'menu.fxml'.";
-//        assert statistics != null : "fx:id=\"statistics\" was not injected: check your FXML file 'menu.fxml'.";
+    public void initialize() {
 
     }
 
+    @Override
+    public void update() {
+
+    }
 }
 
 

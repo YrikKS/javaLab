@@ -16,39 +16,36 @@ public class GameBoard {
     private Vector<Vector<Integer>> correctGameBoard;
     private Vector<Vector<Vector<Integer>>> versionInCells;
     private Vector<Vector<Integer>> finalBoardWithOutNewNumber;
-    private List<Momento> momentos = new ArrayList<>();
+    private final List<Momento> moments = new ArrayList<>();
     private Integer positionOnList = 0;
+    private Integer numberOfEmptyCells = 0;
 
-    public void loadMomento(Integer load) {
-        if (momentos.size() == 0 || positionOnList + load < 0) {
-            System.out.println("momentos == 0");
+    public void loadMomento() {
+        if (moments.size() == 0 || positionOnList - 1 < 0) {
+            System.out.println("moments == 0");
             return;
         }
-        if (momentos.size() < positionOnList + load)
+        if (moments.size() < positionOnList - 1)
             return;
-        positionOnList += load;
-        if (load == -1) {
-            Momento moment = momentos.get(positionOnList);
-            ModifiedMainNumber modifiedMainNumber = moment.getModifiedMainNumber();
-            if (modifiedMainNumber.isMainNumberModified())
-                gameBoard.get(modifiedMainNumber.getRowWithModifiedCell()).set(modifiedMainNumber.getColWithModifiedCell(), modifiedMainNumber.getNumberThatWasBefore());
-            Vector<ModifiedVersionNumber> vectorModifiedVersionNumber = moment.getvectorModifiedVersionNumber();
-
-            for (int i = 0; i < vectorModifiedVersionNumber.size(); i++) {
-                ModifiedVersionNumber modifiedVersionNumber = vectorModifiedVersionNumber.get(i);
-                versionInCells.get(modifiedVersionNumber.getRowWithModifiedCell())
-                        .get(modifiedVersionNumber.getColWithModifiedCell()).set(modifiedVersionNumber.getPositionVersion(), modifiedVersionNumber.getNumberThatWasBefore());
-            }
+        positionOnList--;
+        Momento moment = moments.get(positionOnList);
+        ModifiedMainNumber modifiedMainNumber = moment.getModifiedMainNumber();
+        if (modifiedMainNumber.isMainNumberModified()) {
+            gameBoard.get(modifiedMainNumber.getRowWithModifiedCell()).set(modifiedMainNumber.getColWithModifiedCell(), modifiedMainNumber.getNumberThatWasBefore());
+            numberOfEmptyCells++;
         }
+        Vector<ModifiedVersionNumber> vectorModifiedVersionNumber = moment.getvectorModifiedVersionNumber();
+
+        for (int i = 0; i < vectorModifiedVersionNumber.size(); i++) {
+            ModifiedVersionNumber modifiedVersionNumber = vectorModifiedVersionNumber.get(i);
+            versionInCells.get(modifiedVersionNumber.getRowWithModifiedCell())
+                    .get(modifiedVersionNumber.getColWithModifiedCell()).set(modifiedVersionNumber.getPositionVersion(), modifiedVersionNumber.getNumberThatWasBefore());
+        }
+
     }
 
-    public Integer getFinalGameBoardCell(int a, int b) {
-        return gameBoard.get(a).get(b);
-    }
-
-    public void dellAllVersionInCell(int a, int b) {
-        for (int i = 0; i < 9; i++)
-            versionInCells.get(a).get(b).set(i, 0);
+    public Integer getFinalGameBoardCell(Integer row, Integer col) {
+        return gameBoard.get(row).get(col);
     }
 
     public boolean isCellHaveNameInStartedBoard(Integer row, Integer col) {
@@ -57,12 +54,23 @@ public class GameBoard {
         return true;
     }
 
+    public void dellAllVersionInCell(Integer row, Integer col) {
+        checkMomento();
+        Momento momento = new Momento();
+        for (int i = 0; i < 9; i++) {
+            momento.addVersionInVector(row, col, versionInCells.get(row).get(col).get(i), i, 0);
+            versionInCells.get(row).get(col).set(i, 0);
+        }
+        moments.add(momento);
+        positionOnList++;
+    }
+
     public void dellOneVersionInCell(Integer row, Integer col, Integer versionNum) {
         checkMomento();
         Momento momento = new Momento();
         momento.addVersionInVector(row, col, versionNum, versionNum, 0);
         versionInCells.get(row).get(col).set(versionNum, 0);
-        momentos.add(momento);
+        moments.add(momento);
         positionOnList++;
     }
 
@@ -71,20 +79,28 @@ public class GameBoard {
         Momento momento = new Momento();
         momento.addVersionInVector(row, col, 0, versionNum, versionNum);
         versionInCells.get(row).get(col).set(versionNum, versionNum);
-        momentos.add(momento);
+        moments.add(momento);
         positionOnList++;
     }
 
-    public void dellNumbInCell(int row, int col) {
+    public void dellNumbInCell(Integer row, Integer col) {
         checkMomento();
+        numberOfEmptyCells++;
         Momento momento = new Momento();
         momento.addModifedMainNumber(row, col, gameBoard.get(row).get(col), 0);
         gameBoard.get(row).set(col, 0);
-        momentos.add(momento);
+        moments.add(momento);
         positionOnList++;
     }
 
+    public boolean isGameEnd() {
+        if (numberOfEmptyCells == 0)
+            return true;
+        return false;
+    }
+
     public void setNumberInCell(Integer row, Integer col, Integer num) {
+        numberOfEmptyCells--;
         printBoard();
         checkMomento();
         Momento momento = new Momento();
@@ -113,22 +129,26 @@ public class GameBoard {
                 momento.addVersionInVector(row, col, k + 1, k + 1, k + 1);
             versionInCells.get(row).get(col).set(k + 1, 0);
         }
-        momentos.add(momento);
+        moments.add(momento);
         positionOnList++;
     }
 
     private void checkMomento() {
-        while (momentos.size() != positionOnList) {
-            momentos.remove(momentos.size() - 1);
+        while (moments.size() != positionOnList) {
+            moments.remove(moments.size() - 1);
         }
     }
 
-    public Vector<Integer> getVersionCell(int a, int b) {
-        return versionInCells.get(a).get(b);
+    public Vector<Integer> getVersionCell(Integer row, Integer col) {
+        return versionInCells.get(row).get(col);
     }
 
-    public Integer getCorrectNumberForCell(int a, int b) {
-        return gameBoard.get(a).get(b);
+    public Integer getMainNum(Integer row, Integer col) {
+        return gameBoard.get(row).get(col);
+    }
+
+    public Integer getCorrectNumberForCell(Integer row, Integer col) {
+        return correctGameBoard.get(row).get(col);
     }
 
     public GameBoard() {
@@ -217,7 +237,7 @@ public class GameBoard {
             }
     }
 
-    public boolean isGameEnd() {
+    public boolean isCorrectGameEnd() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (gameBoard.get(i).get(j) != correctGameBoard.get(i).get(j))
@@ -287,13 +307,14 @@ public class GameBoard {
         }
         if (count == 1) {
             gameBoard.get(k1).set(k2, 0);
+            numberOfEmptyCells++;
             count--;
         }
 
     }
 
     private void changesRandomGameBoard() {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             int versionChanges = (int) (Math.random() * 5);
             if (versionChanges == 0)
                 swapRowsSmall((int) (Math.random() * 3), (int) (Math.random() * 3), (int) (Math.random() * 3));
@@ -325,13 +346,13 @@ public class GameBoard {
     /**
      * @param district 0-2 один из 3 райнов
      */
-    public void swapRowsSmall(int district, int firstRows, int secondRows) {
+    public void swapRowsSmall(Integer district, Integer firstRows, Integer secondRows) {
         Vector<Integer> tmp = gameBoard.get(district * 3 + firstRows);
         gameBoard.set(district * 3 + firstRows, gameBoard.get(district * 3 + secondRows));
         gameBoard.set(district * 3 + secondRows, tmp);
     }
 
-    public void swapColumsSmall(int district, int firstColum, int secondColumn) {
+    public void swapColumsSmall(Integer district, Integer firstColum, Integer secondColumn) {
         for (int i = 0; i < 9; i++) {
             Integer tmp = gameBoard.get(i).get(district * 3 + firstColum);
             gameBoard.get(i).set(district * 3 + firstColum, gameBoard.get(i).get(district * 3 + secondColumn));
@@ -339,7 +360,7 @@ public class GameBoard {
         }
     }
 
-    public void swapDistrictRows(int firstDistrict, int secondDistrict) {
+    public void swapDistrictRows(Integer firstDistrict, Integer secondDistrict) {
         for (int i = 0; i < 3; i++) {
             Vector<Integer> tmp = gameBoard.get(firstDistrict * 3 + i);
             gameBoard.set(firstDistrict * 3 + i, gameBoard.get(secondDistrict * 3 + i));
@@ -347,7 +368,7 @@ public class GameBoard {
         }
     }
 
-    public void swapDistrictColum(int firstDistrict, int secondDistrict) {
+    public void swapDistrictColum(Integer firstDistrict, Integer secondDistrict) {
         for (int i = 0; i < 3; i++) {
             for (int k = 0; k < 9; k++) {
                 Integer tmp = gameBoard.get(k).get(i + firstDistrict * 3);
@@ -368,6 +389,13 @@ public class GameBoard {
     }
 
     public void printBoard() {
+        System.out.println("-----------------------------");
+        for (int i = 0; i < 9; i++) {
+            System.out.println(gameBoard.get(i));
+        }
+    }
+
+    public void printCorrectBoard() {
         System.out.println("-----------------------------");
         for (int i = 0; i < 9; i++) {
             System.out.println(correctGameBoard.get(i));
