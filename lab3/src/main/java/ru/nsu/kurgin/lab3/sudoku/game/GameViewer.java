@@ -27,7 +27,6 @@ public class GameViewer implements TimerObserver, Observer {
     public Text timerText;
     @FXML
     private ToggleButton buttonOne;
-
     @FXML
     private GridPane mainPane;
 
@@ -43,16 +42,14 @@ public class GameViewer implements TimerObserver, Observer {
 
     @FXML
     void clickMainPane(MouseEvent event) {
-
         if ((event.getPickResult().getIntersectedNode().getParent().getParent()).getClass().getName().equals("javafx.scene.layout.AnchorPane")) {
             int row = (int) event.getPickResult().getIntersectedNode().getParent().getParent().getLayoutY() / 45;
             int col = (int) event.getPickResult().getIntersectedNode().getParent().getParent().getLayoutX() / 45;
-            System.out.println(event.getButton());
-            if (event.getButton().name() == "PRIMARY")
+            if (event.getButton().name() == "PRIMARY") {
                 gameController.leftClickInCell(row, col);
+            }
             else if (event.getButton().name() == "SECONDARY")
                 gameController.rightClickInCell(row, col);
-
         }
     }
 
@@ -82,7 +79,6 @@ public class GameViewer implements TimerObserver, Observer {
                             ((Text) (((GridPane) ((AnchorPane) lists.get(i * 9 + j)).getChildren().get(0)).getChildren().get(k))).setText(null);
                         else
                             ((Text) (((GridPane) ((AnchorPane) lists.get(i * 9 + j)).getChildren().get(0)).getChildren().get(k))).setText(String.valueOf(versionNums.get(k)));
-
                     }
                 }
                 if (toolNumber == 0) {

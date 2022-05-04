@@ -17,7 +17,7 @@ import java.io.InputStream;
 // TODO uncorrect num placed
 // TODO mb rework generator nums
 
-public class HelloApplication extends Application {
+public class main extends Application {
     private MyTimer myTimer = new MyTimer();
     private static Stage stage;
 

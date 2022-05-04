@@ -5,7 +5,6 @@ public class ModifiedMainNumber {
     private Integer rowWithModifiedCell;
     private Integer colWithModifiedCell;
     private Integer numberThatWasBefore;
-    private Integer numberThatBecame;
 
 
     public ModifiedMainNumber () {
@@ -13,22 +12,13 @@ public class ModifiedMainNumber {
         rowWithModifiedCell = 0;
         colWithModifiedCell = 0;
         numberThatWasBefore = 0;
-        numberThatBecame = 0;
     }
 
-    public ModifiedMainNumber(Integer row, Integer col, Integer numberInCell) {
+    public void setModifiedMainNumber(Integer row, Integer col, Integer numberInCell) {
         isMainNumberModified = true;
         rowWithModifiedCell = row;
         colWithModifiedCell = col;
         numberThatWasBefore = numberInCell;
-    }
-
-    public void setModifiedMainNumber(Integer row, Integer col, Integer numberInCell, Integer numberThatBecame) {
-        isMainNumberModified = true;
-        rowWithModifiedCell = row;
-        colWithModifiedCell = col;
-        numberThatWasBefore = numberInCell;
-        this.numberThatBecame = numberThatBecame;
     }
 
     public boolean isMainNumberModified() {
@@ -47,7 +37,4 @@ public class ModifiedMainNumber {
         return numberThatWasBefore;
     }
 
-    public Integer getNumberThatBecame() {
-        return numberThatBecame;
-    }
 }

@@ -3,10 +3,10 @@ package ru.nsu.kurgin.lab3.sudoku.time;
 import ru.nsu.kurgin.lab3.sudoku.TimerObserver.TimerObservable;
 
 public class MyTimer extends TimerObservable implements Runnable {
+    private Integer seconds = 0;
     private boolean isActive = true;
 
     public void setActive(boolean active) {
-        System.out.println("rabotaet");
         isActive = active;
     }
 
@@ -14,13 +14,9 @@ public class MyTimer extends TimerObservable implements Runnable {
         return seconds;
     }
 
-    private Integer seconds = 0;
-
-    public void run()        //Этот метод будет выполняться в побочном потоке
-    {
+    public void run() {
         while (isActive) {
             notifyTimeObservers(seconds);
-            System.out.println(seconds);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

@@ -1,6 +1,6 @@
 package ru.nsu.kurgin.lab3.sudoku.game;
 
-import ru.nsu.kurgin.lab3.sudoku.HelloApplication;
+import ru.nsu.kurgin.lab3.sudoku.main;
 import ru.nsu.kurgin.lab3.sudoku.Statistic.StatisticsModel;
 import ru.nsu.kurgin.lab3.sudoku.gameEnd.GameEndLoader;
 import ru.nsu.kurgin.lab3.sudoku.menu.MenuLoader;
@@ -21,14 +21,13 @@ public class GameModel extends Observable implements InterfaceGameModel {
 
     public void loadMenu() {
         myTimer.setActive(false);
-        HelloApplication.setNewLoader(new MenuLoader());
+        main.setNewLoader(new MenuLoader());
     }
 
     public boolean isCellHaveNameInStartedBoard(Integer row, Integer col) {
         return gameBoard.isCellHaveNameInStartedBoard(row, col);
     }
 
-    @Override
     public void setOrDellNumInCell(Integer row, Integer col, Integer num) {
         if (gameBoard.isCellHaveNameInStartedBoard(row, col))
             return;
@@ -47,8 +46,15 @@ public class GameModel extends Observable implements InterfaceGameModel {
         notifyObservers();
 
         if (gameBoard.isGameEnd()) {
-            loadEndGame();
-            StatisticsModel.setNewStats(myTimer.getSeconds());
+            if(gameBoard.isCorrectGameEnd()) {
+                loadEndGame();
+                StatisticsModel.setNewStats(myTimer.getSeconds());
+            }
+            else {
+                System.out.println("Error");
+                gameBoard.printBoard();
+                gameBoard.printCorrectBoard();
+            }
         }
     }
 
@@ -56,16 +62,14 @@ public class GameModel extends Observable implements InterfaceGameModel {
         myTimer.setActive(false);
         GameEndLoader gameEndLoader = new GameEndLoader();
         gameEndLoader.setTime(myTimer.getSeconds());
-        HelloApplication.setNewLoader(gameEndLoader);
+        main.setNewLoader(gameEndLoader);
     }
 
-    @Override
     public void cancellationOfAction() {
         gameBoard.loadMomento();
         notifyObservers();
     }
 
-    @Override
     public GameBoard getGameBoard() {
         return gameBoard;
     }
@@ -80,7 +84,6 @@ public class GameModel extends Observable implements InterfaceGameModel {
         return gameBoard.getVersionCell(row, col);
     }
 
-    @Override
     public void generateOrDelAllVersion() {
         if (versionIsInstalled) {
             gameBoard.dellVersionInCell();
@@ -92,11 +95,9 @@ public class GameModel extends Observable implements InterfaceGameModel {
         notifyObservers();
     }
 
-    @Override
     public void setOrDelOneVersionInCell(Integer row, Integer col, Integer versionNum) {
-        if (gameBoard.isCellHaveNameInStartedBoard(row, col))
+        if (gameBoard.getMainNum(row, col) != 0)
             return;
-//        if (gameBoard.getFinalGameBoardCell())
         if (gameBoard.getVersionCell(row, col).get(versionNum) == versionNum)
             gameBoard.dellOneVersionInCell(row, col, versionNum);
         else
@@ -104,17 +105,11 @@ public class GameModel extends Observable implements InterfaceGameModel {
         notifyObservers();
     }
 
-    @Override
     public void startTimer() {
         Thread myThready = new Thread(myTimer);    //Создание потока "myThready"
         myThready.start();
     }
 
-    public void endTimer() {
-        myTimer.setActive(false);
-    }
-
-    @Override
     public void update() {
         notifyObservers();
     }

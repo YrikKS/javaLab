@@ -8,9 +8,6 @@ public class ModifiedVersionNumber {
     private Integer numberThatBecame = 0;
     private Integer positionVersion = 0;
 
-    public ModifiedVersionNumber(){
-
-    }
     public ModifiedVersionNumber(Integer row, Integer col, Integer positionVersion, Integer numberInCell, Integer numberThatBecame) {
         isVersionNumberModified = true;
         rowWithModifiedCell = row;
@@ -18,10 +15,6 @@ public class ModifiedVersionNumber {
         numberThatWasBefore = numberInCell;
         this.positionVersion = positionVersion;
         this.numberThatBecame = numberThatBecame;
-    }
-
-    public boolean isMainNumberModified() {
-        return isVersionNumberModified;
     }
 
     public Integer getColWithModifiedCell() {
@@ -40,7 +33,4 @@ public class ModifiedVersionNumber {
         return positionVersion;
     }
 
-    public Integer getNumberThatBecame() {
-        return numberThatBecame;
-    }
 }

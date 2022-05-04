@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ru.nsu.kurgin.lab3.sudoku.HelloApplication;
+import ru.nsu.kurgin.lab3.sudoku.main;
 import ru.nsu.kurgin.lab3.sudoku.loaders.InterfaceLoaders;
 
 public class GameEndLoader extends Application implements InterfaceLoaders  {
@@ -15,7 +15,7 @@ public class GameEndLoader extends Application implements InterfaceLoaders  {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("gameEndv2.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("gameEndv2.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 410, 656);
         gameEndViewer = fxmlLoader.getController();

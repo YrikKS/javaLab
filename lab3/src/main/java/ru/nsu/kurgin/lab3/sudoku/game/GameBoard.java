@@ -100,8 +100,9 @@ public class GameBoard {
     }
 
     public void setNumberInCell(Integer row, Integer col, Integer num) {
-        numberOfEmptyCells--;
+        printCorrectBoard();
         printBoard();
+        numberOfEmptyCells--;
         checkMomento();
         Momento momento = new Momento();
         momento.addModifedMainNumber(row, col, gameBoard.get(row).get(col), num);
@@ -174,6 +175,7 @@ public class GameBoard {
         }
 
         generateNumInGameBoard();
+        changesRandomGameBoard();
         for (int i = 0; i < 9; ++i) {
             for (int j = 0; j < 9; ++j) {
                 correctGameBoard.get(i).set(j, gameBoard.get(i).get(j));
@@ -186,7 +188,6 @@ public class GameBoard {
             }
         }
 
-        changesRandomGameBoard();
         versionInCells = new Vector();
         versionInCells.setSize(9);
 
@@ -207,7 +208,6 @@ public class GameBoard {
                 finalBoardWithOutNewNumber.get(i).set(j, gameBoard.get(i).get(j));
             }
         }
-        printBoard();
     }
 
     public void createVersionInCell() {

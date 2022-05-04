@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ru.nsu.kurgin.lab3.sudoku.HelloApplication;
+import ru.nsu.kurgin.lab3.sudoku.main;
 import ru.nsu.kurgin.lab3.sudoku.loaders.InterfaceLoaders;
 
 public class MenuLoader extends Application implements InterfaceLoaders {
@@ -15,7 +15,7 @@ public class MenuLoader extends Application implements InterfaceLoaders {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("menu.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("menu.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 410, 656);
         menuViewer = fxmlLoader.getController();
@@ -30,9 +30,6 @@ public class MenuLoader extends Application implements InterfaceLoaders {
     public void applicationStart(Stage stage) throws Exception {
         start(stage);
     }
-
-//    @Override
-//    public void applicationStart(Stage stage, Integer time) throws Exception {}
 
     public static void main(String[] args) {
         Application.launch();

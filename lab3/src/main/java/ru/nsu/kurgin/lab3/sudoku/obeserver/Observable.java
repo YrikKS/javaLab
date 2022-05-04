@@ -10,12 +10,7 @@ public class Observable {
         list.add(observer);
     }
 
-    public void removeObserver(Observer observer){
-        list.remove(observer);
-    }
-
     public void notifyObservers(){
-//        System.out.println("in notifyObservers");
         for(Observer ob : list){
             ob.update();
         }

@@ -5,9 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import ru.nsu.kurgin.lab3.sudoku.gameEnd.GameEndController;
-import ru.nsu.kurgin.lab3.sudoku.gameEnd.GameEndModel;
 import ru.nsu.kurgin.lab3.sudoku.obeserver.Observer;
+import ru.nsu.kurgin.lab3.sudoku.time.ConvertorSecondInNormal;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,22 +23,7 @@ public class GameEndViewer implements Observer {
 
 
     public void setTime(Integer time) {
-        int sec = time % 60;
-        int min = time / 60;
-        String timeStr;
-        if (min < 10)
-            timeStr = "0" + min;
-        else {
-            timeStr = String.valueOf(min);
-        }
-        timeStr = timeStr + ":";
-
-        if (sec < 10) {
-            timeStr = timeStr + "0" + sec;
-        } else
-            timeStr = timeStr + sec;
-
-        textTime.setText(timeStr);
+        textTime.setText(ConvertorSecondInNormal.convertSecond(time));
     }
 
 

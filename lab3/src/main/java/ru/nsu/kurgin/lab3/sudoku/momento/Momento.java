@@ -9,7 +9,7 @@ public class Momento {
     public Momento() {}
 
     public void addModifedMainNumber(Integer row, Integer col, Integer num, Integer newNum){
-        modifiedMainNumber.setModifiedMainNumber(row, col, num, newNum);
+        modifiedMainNumber.setModifiedMainNumber(row, col, num);
     }
 
     public int getModifiedVectorSize(){

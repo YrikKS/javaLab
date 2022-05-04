@@ -1,9 +1,9 @@
 package ru.nsu.kurgin.lab3.sudoku.menu;
 
 public interface InterfaceMenuController {
-    public void clickInNewGame();
+    void clickInNewGame();
 
-    public void clickInStatistics();
+    void clickInStatistics();
 
-    public void clickInExitGame();
+    void clickInExitGame();
 }

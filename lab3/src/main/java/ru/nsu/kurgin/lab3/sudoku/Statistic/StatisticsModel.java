@@ -1,6 +1,6 @@
 package ru.nsu.kurgin.lab3.sudoku.Statistic;
 
-import ru.nsu.kurgin.lab3.sudoku.HelloApplication;
+import ru.nsu.kurgin.lab3.sudoku.main;
 import ru.nsu.kurgin.lab3.sudoku.menu.MenuLoader;
 import ru.nsu.kurgin.lab3.sudoku.obeserver.Observable;
 
@@ -10,7 +10,7 @@ import java.util.Vector;
 public class StatisticsModel extends Observable {
 
     public void loadMenu() {
-        HelloApplication.setNewLoader(new MenuLoader());
+        main.setNewLoader(new MenuLoader());
     }
 
     public static void setNewStats(Integer time) {
