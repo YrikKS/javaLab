@@ -16,8 +16,8 @@ import java.util.regex.Pattern;
 
 public class FabricForWorkers {
     private static final Logger logger = LogManager.getLogger(FabricForWorkers.class);
-    Map<String, Worker> mapWorkers = new HashMap<>();
-    BufferedReader reader;
+    private Map<String, Worker> mapWorkers = new HashMap<>();
+    private BufferedReader reader;
 
     /**
      * the constructor for the factory, it fills in the map
@@ -78,5 +78,9 @@ public class FabricForWorkers {
             throw (new CommandExceptions(Constants.EXEPTION_INCORRECT_COMMAND));
         }
         return mapWorkers.get(str);
+    }
+
+    public Map<String, Worker> getMapWorkers() {
+        return mapWorkers;
     }
 }

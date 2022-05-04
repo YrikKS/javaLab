@@ -17,5 +17,5 @@ public interface Worker {
      * @throws WorkerExceptions - exceptions that are thrown by blocks
      * @throws StackExceptions - exceptions that are thrown by stack
      */
-    public void execution(String arguments, StackParameters stack) throws WorkerExceptions, StackExceptions;
+    void execution(String arguments, StackParameters stack) throws WorkerExceptions, StackExceptions;
 }

@@ -14,9 +14,9 @@ import java.util.regex.Pattern;
  */
 public class Command {
     private static final Logger logger = LogManager.getLogger(Command.class);
-    String command = null;
-    String arguments = null;
-    boolean readEnd = false;
+    private String command = null;
+    private String arguments = null;
+    private boolean readEnd = false;
 
     /**
      * Constructor of the class. Determines the name of the command, its arguments,

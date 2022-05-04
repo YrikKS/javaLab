@@ -10,9 +10,8 @@ import java.util.regex.Pattern;
 
 
 public class StackParameters {
-
-    Stack<String> stack = new Stack<>();
-    Map<String, Double> mapParameters = new HashMap<>();
+    private Stack<String> stack = new Stack<>();
+    private Map<String, Double> mapParameters = new HashMap<>();
 
     /**
      * function get last element in stack, convert in number and return them
@@ -72,6 +71,15 @@ public class StackParameters {
      */
     public void AddParametersInMap(String key, Double value) {
         mapParameters.put(key, value);
+    }
+
+
+    public Map<String, Double> getMapParameters() {
+        return mapParameters;
+    }
+
+    public Stack<String> getStack() {
+        return stack;
     }
 
 }

@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class ReaderFromCmd implements Reader {
     private static final Logger logger = LogManager.getLogger(ReaderFromCmd.class);
-    Scanner in = null;
+    private Scanner in = null;
 
     /**
      * the constructor initializes the Scanner(To enter from the console)

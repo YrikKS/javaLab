@@ -11,15 +11,15 @@ public class TestFabric {
     @Test
     public void FabricTests() throws FabricExceptions, CommandExceptions {
         FabricForWorkers fabric = new FabricForWorkers();
-        assertSame(fabric.mapWorkers.get("+"), fabric.getWorker("+"));
-        assertSame(fabric.mapWorkers.get("-"), fabric.getWorker("-"));
-        assertSame(fabric.mapWorkers.get("*"), fabric.getWorker("*"));
-        assertSame(fabric.mapWorkers.get("/"), fabric.getWorker("/"));
-        assertSame(fabric.mapWorkers.get("SQRT"), fabric.getWorker("SQRT"));
-        assertSame(fabric.mapWorkers.get("PUSH"), fabric.getWorker("PUSH"));
-        assertSame(fabric.mapWorkers.get("POP"), fabric.getWorker("POP"));
-        assertSame(fabric.mapWorkers.get("DEFINE"), fabric.getWorker("DEFINE"));
-        assertSame(fabric.mapWorkers.get("PRINT"), fabric.getWorker("PRINT"));
+        assertSame(fabric.getMapWorkers().get("+"), fabric.getWorker("+"));
+        assertSame(fabric.getMapWorkers().get("-"), fabric.getWorker("-"));
+        assertSame(fabric.getMapWorkers().get("*"), fabric.getWorker("*"));
+        assertSame(fabric.getMapWorkers().get("/"), fabric.getWorker("/"));
+        assertSame(fabric.getMapWorkers().get("SQRT"), fabric.getWorker("SQRT"));
+        assertSame(fabric.getMapWorkers().get("PUSH"), fabric.getWorker("PUSH"));
+        assertSame(fabric.getMapWorkers().get("POP"), fabric.getWorker("POP"));
+        assertSame(fabric.getMapWorkers().get("DEFINE"), fabric.getWorker("DEFINE"));
+        assertSame(fabric.getMapWorkers().get("PRINT"), fabric.getWorker("PRINT"));
 
         CommandExceptions thrown1 = Assertions.assertThrows(CommandExceptions.class, () -> {
             FabricForWorkers fabric1 = new FabricForWorkers();
