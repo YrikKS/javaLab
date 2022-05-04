@@ -20,47 +20,23 @@ import java.util.Vector;
 public class GameViewer implements TimerObserver, Observer {
     private GameModel gameModel;
     private GameController gameController;
-
-    @FXML
-    private ImageView buttonBack;
-    @FXML
-    public Text timerText;
-    @FXML
-    private ToggleButton buttonOne;
-    @FXML
-    private GridPane mainPane;
-
     private Integer toolNumber = 0;
 
-    public void setGameModelAndController(GameModel model, GameController controller) {
+    public void setGameModelAndController(GameModel model, GameController gameController) {
         gameModel = model;
-        gameController = controller;
-        gameController.startTimer();
+        gameModel.startTimer();
+        this.gameController = gameController;
         model.update();
-    }
-
-
-    @FXML
-    void clickMainPane(MouseEvent event) {
-        if ((event.getPickResult().getIntersectedNode().getParent().getParent()).getClass().getName().equals("javafx.scene.layout.AnchorPane")) {
-            int row = (int) event.getPickResult().getIntersectedNode().getParent().getParent().getLayoutY() / 45;
-            int col = (int) event.getPickResult().getIntersectedNode().getParent().getParent().getLayoutX() / 45;
-            if (event.getButton().name() == "PRIMARY") {
-                gameController.leftClickInCell(row, col);
-            }
-            else if (event.getButton().name() == "SECONDARY")
-                gameController.rightClickInCell(row, col);
-        }
     }
 
     @Override
     public void timerUpdate(Integer seconds) {
-        timerText.setText(ConvertorSecondInNormal.convertSecond(seconds));
+        gameController.timerText.setText(ConvertorSecondInNormal.convertSecond(seconds));
     }
 
     @Override
     public void update() {
-        ObservableList<Node> lists = mainPane.getChildren();
+        ObservableList<Node> lists = gameController.mainPane.getChildren();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 Vector<Integer> versionNums = gameModel.getVersionNum(i, j);
@@ -81,15 +57,15 @@ public class GameViewer implements TimerObserver, Observer {
                             ((Text) (((GridPane) ((AnchorPane) lists.get(i * 9 + j)).getChildren().get(0)).getChildren().get(k))).setText(String.valueOf(versionNums.get(k)));
                     }
                 }
-                if (toolNumber == 0) {
+                if (gameController.getToolNumber() == 0) {
                     ((AnchorPane) lists.get(i * 9 + j)).setStyle(null);
-                } else if (toolNumber == -1) {
+                } else if (gameController.getToolNumber() == -1) {
                     ((AnchorPane) lists.get(i * 9 + j)).setStyle(null);
-                } else if (gameModel.getNum(i, j) == toolNumber)
+                } else if (gameModel.getNum(i, j) == gameController.getToolNumber())
                     ((AnchorPane) lists.get(i * 9 + j)).setStyle(Constatnts.COLLOR_SELECTED_NUMBER);
                 else {
                     ((AnchorPane) lists.get(i * 9 + j)).setStyle(null);
-                    if (gameModel.getVersionNum(i, j).get(toolNumber) == toolNumber)
+                    if (gameModel.getVersionNum(i, j).get(gameController.getToolNumber()) == gameController.getToolNumber())
                         ((AnchorPane) lists.get(i * 9 + j)).setStyle(Constatnts.COLLOR_VERSION_SELECTED_NUMBER);
                     else
                         ((AnchorPane) lists.get(i * 9 + j)).setStyle(null);
@@ -97,111 +73,5 @@ public class GameViewer implements TimerObserver, Observer {
 
             }
         }
-    }
-
-    @FXML
-    void ExitButton(MouseEvent event) {
-        gameController.clickInExitButton();
-    }
-
-    @FXML
-    void clickInBarWithNum(MouseEvent event) {
-        toolNumber = 1;
-        gameController.clickOnToolNumb(toolNumber);
-        update();
-    }
-
-    @FXML
-    void click1(MouseEvent event) {
-        toolNumber = 1;
-        gameController.clickOnToolNumb(toolNumber);
-        update();
-    }
-
-    @FXML
-    void click2(MouseEvent event) {
-        toolNumber = 2;
-        gameController.clickOnToolNumb(toolNumber);
-        update();
-    }
-
-    @FXML
-    void back(MouseEvent event) {
-        System.out.println("ClickInCancsle");
-        gameController.clickingOnTheCancelActionButton();
-    }
-
-    @FXML
-    void click3(MouseEvent event) {
-        toolNumber = 3;
-        gameController.clickOnToolNumb(toolNumber);
-        update();
-    }
-
-    @FXML
-    void click4(MouseEvent event) {
-        toolNumber = 4;
-        gameController.clickOnToolNumb(toolNumber);
-        update();
-    }
-
-    @FXML
-    void click5(MouseEvent event) {
-        toolNumber = 5;
-        gameController.clickOnToolNumb(toolNumber);
-        update();
-    }
-
-    @FXML
-    void click6(MouseEvent event) {
-        toolNumber = 6;
-        gameController.clickOnToolNumb(toolNumber);
-        update();
-    }
-
-    @FXML
-    void click7(MouseEvent event) {
-        toolNumber = 7;
-        gameController.clickOnToolNumb(toolNumber);
-        update();
-    }
-
-    @FXML
-    void click8(MouseEvent event) {
-        toolNumber = 8;
-        gameController.clickOnToolNumb(toolNumber);
-        update();
-    }
-
-    @FXML
-    void click9(MouseEvent event) {
-        toolNumber = 9;
-        gameController.clickOnToolNumb(toolNumber);
-        update();
-    }
-
-    public void click(MouseEvent mouseEvent) {
-    }
-
-    public void dellButton(MouseEvent mouseEvent) {
-        toolNumber = -1;
-        gameController.clickOnToolNumb(toolNumber);
-    }
-
-    public void clickNoNumber(MouseEvent mouseEvent) {
-        toolNumber = 0;
-        gameController.clickOnToolNumb(toolNumber);
-        update();
-    }
-
-    public void addMark(MouseEvent mouseEvent) {
-        gameController.clickInDelOrSetAllVersion();
-        update();
-    }
-
-    public void clickInBarWithButton(MouseEvent mouseEvent) {
-    }
-
-    public void mouseMoveInBarWithButton(MouseEvent mouseEvent) {
     }
 }

@@ -9,20 +9,20 @@ import ru.nsu.kurgin.lab3.sudoku.loaders.InterfaceLoaders;
 
 public class MenuLoader extends Application implements InterfaceLoaders {
 
-    private MenuController menuController = new MenuController();
+    private MenuController menuController;
     private MenuModel menuModel = new MenuModel();
-    private MenuViewer menuViewer;
+    private MenuView menuViewer;
 
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("menu.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 410, 656);
-        menuViewer = fxmlLoader.getController();
+        menuController = fxmlLoader.getController();
 
         menuController.setMenuModel(menuModel);
         menuModel.addObserver(menuViewer);
-        menuViewer.setMenuModelAndController(menuModel, menuController);
+        menuController.setMenuModel(menuModel);
         stage.setScene(scene);
         stage.show();
     }

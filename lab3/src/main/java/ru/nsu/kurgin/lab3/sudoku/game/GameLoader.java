@@ -11,8 +11,8 @@ import ru.nsu.kurgin.lab3.sudoku.time.MyTimer;
 public class GameLoader extends Application implements InterfaceLoaders {
     private MyTimer myTimer = new MyTimer();
     private GameModel gameModel = new GameModel();
-    private GameController controller = new GameController();
-    private GameViewer viewer;
+    private GameController controller;
+    private GameViewer viewer = new GameViewer();
 
 
     @Override
@@ -20,12 +20,13 @@ public class GameLoader extends Application implements InterfaceLoaders {
         FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("game.fxml"));
 
         Scene gameScene = new Scene(fxmlLoader.load(), 410, 656);
-        viewer = fxmlLoader.getController();
+        controller = fxmlLoader.getController();
         myTimer.addObserver(viewer);
-        controller.setGameModel(gameModel);
+//        controller.setGameModel(gameModel);
+        viewer.setGameModelAndController(gameModel, controller);
         gameModel.addObserver(viewer);
         gameModel.setMyTimer(myTimer);
-        viewer.setGameModelAndController(gameModel, controller);
+        controller.setGameModel(gameModel);
         gameStage.setScene(gameScene);
         gameStage.show();
 

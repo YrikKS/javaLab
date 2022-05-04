@@ -9,21 +9,21 @@ import ru.nsu.kurgin.lab3.sudoku.loaders.InterfaceLoaders;
 
 public class StatisticsLoader extends Application implements InterfaceLoaders {
 
-    private StatisticsController statisticsController = new StatisticsController();
+    private StatisticsController statisticsController;
     private StatisticsModel statisticsModel = new StatisticsModel();
-    private StatisticsViewer statisticsViewer;
+    private StatisticsView statisticsViewer = new StatisticsView();
 
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("statistics.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 410, 656);
-        statisticsViewer = fxmlLoader.getController();
+        statisticsController = fxmlLoader.getController();
 
-        statisticsViewer.setStatisticsText();
+        statisticsController.setStatisticsText();
         statisticsController.setMenuModel(statisticsModel);
         statisticsModel.addObserver(statisticsViewer);
-        statisticsViewer.setMenuModelAndController(statisticsModel, statisticsController);
+        statisticsController.setMenuModel(statisticsModel);
         stage.setScene(scene);
         stage.show();
     }

@@ -9,21 +9,17 @@ import ru.nsu.kurgin.lab3.sudoku.loaders.InterfaceLoaders;
 
 public class GameEndLoader extends Application implements InterfaceLoaders  {
     private Integer time = 0;
-    private GameEndController gameEndController = new GameEndController();
+    private GameEndController gameEndController;
     private GameEndModel gameEndModel = new GameEndModel();
-    private GameEndViewer gameEndViewer;
 
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("gameEndv2.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 410, 656);
-        gameEndViewer = fxmlLoader.getController();
-        gameEndViewer.setTime(time);
-
+        gameEndController = fxmlLoader.getController();
+        gameEndController.setTime(time);
         gameEndController.setGameEndModel(gameEndModel);
-        gameEndModel.addObserver(gameEndViewer);
-        gameEndViewer.setGameEndModelAndController(gameEndModel, gameEndController);
 
         stage.setScene(scene);
         stage.show();
