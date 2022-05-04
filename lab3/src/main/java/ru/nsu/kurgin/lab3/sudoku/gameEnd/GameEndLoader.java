@@ -11,6 +11,7 @@ public class GameEndLoader extends Application implements InterfaceLoaders  {
     private Integer time = 0;
     private GameEndController gameEndController;
     private GameEndModel gameEndModel = new GameEndModel();
+    private GameEndView gameEndView = new GameEndView();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -20,6 +21,7 @@ public class GameEndLoader extends Application implements InterfaceLoaders  {
         gameEndController = fxmlLoader.getController();
         gameEndController.setTime(time);
         gameEndController.setGameEndModel(gameEndModel);
+        gameEndModel.addObserver(gameEndView);
 
         stage.setScene(scene);
         stage.show();

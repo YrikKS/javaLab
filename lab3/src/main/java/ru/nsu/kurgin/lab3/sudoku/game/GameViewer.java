@@ -36,7 +36,7 @@ public class GameViewer implements TimerObserver, Observer {
 
     @Override
     public void update() {
-        ObservableList<Node> lists = gameController.mainPane.getChildren();
+        ObservableList<Node> lists = gameController.getMainPane().getChildren();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 Vector<Integer> versionNums = gameModel.getVersionNum(i, j);

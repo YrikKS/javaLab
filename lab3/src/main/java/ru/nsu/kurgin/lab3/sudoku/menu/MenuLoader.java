@@ -11,7 +11,7 @@ public class MenuLoader extends Application implements InterfaceLoaders {
 
     private MenuController menuController;
     private MenuModel menuModel = new MenuModel();
-    private MenuView menuViewer;
+    private MenuView menuViewer = new MenuView();
 
     @Override
     public void start(Stage stage) throws Exception {

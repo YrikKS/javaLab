@@ -10,6 +10,11 @@ public class GameController {
 
     @FXML
     public Text timerText;
+
+    public GridPane getMainPane() {
+        return mainPane;
+    }
+
     @FXML
     public GridPane mainPane;
 
