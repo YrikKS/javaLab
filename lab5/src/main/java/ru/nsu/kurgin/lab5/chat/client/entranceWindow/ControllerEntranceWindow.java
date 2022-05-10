@@ -5,7 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import ru.nsu.kurgin.lab5.chat.client.observer.Observer;
 
-public class ControllerEntranceWindow extends ViewEntranceWindow implements Observer {
+public class ControllerEntranceWindow extends ViewEntranceWindow{
     private ModelEntranceWindow modelEntranceWindow;
 
 
@@ -14,7 +14,7 @@ public class ControllerEntranceWindow extends ViewEntranceWindow implements Obse
 
     @FXML
     void clickInButtonConnect(MouseEvent event) {
-        modelEntranceWindow.connectToServer();
+        modelEntranceWindow.connectToServer(textFieldWithLoggin.getText());
     }
 
     public void setModelEntranceWindow(ModelEntranceWindow modelEntranceWindow) {

@@ -7,13 +7,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public class ControllerMainWindow {
+public class ControllerMainWindow extends ViewMainWindow{
+    private ModelMainWindow modelMainWindow;
 
     @FXML
     private Button buttonSend;
-
-    @FXML
-    private TextArea chatTextArea;
 
     @FXML
     private TextArea massageTextArea;
@@ -35,7 +33,17 @@ public class ControllerMainWindow {
 
     @FXML
     void sendMassage(MouseEvent event) {
-
+        System.out.println("view get " + massageTextArea.getText());
+        modelMainWindow.sendMsg(massageTextArea.getText());
+        massageTextArea.setText(null);
     }
 
+    public void setModelMainWindow(ModelMainWindow modelMainWindow) {
+        this.modelMainWindow = modelMainWindow;
+    }
+
+    @FXML
+    void initialize() {
+
+    }
 }

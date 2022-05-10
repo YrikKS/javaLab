@@ -9,7 +9,7 @@ import ru.nsu.kurgin.lab5.chat.client.loaders.InterfaceLoaders;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-public class Main extends Application {
+public class Client extends Application {
     private static Stage stage;
 
     @Override

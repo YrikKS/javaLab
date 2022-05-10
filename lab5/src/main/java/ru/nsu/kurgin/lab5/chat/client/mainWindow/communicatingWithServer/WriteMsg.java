@@ -4,14 +4,19 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.Date;
 
-public class WriteMsg extends Thread {
+import com.google.gson.*;
+import ru.nsu.kurgin.lab5.chat.client.Constants;
+import ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.Massage;
+
+public class WriteMsg {
     private Socket clientSocket;
     private BufferedWriter senderInServer = null;
-    private boolean activWriter = true;
 
     public WriteMsg(Socket clientSocket) {
         this.clientSocket = clientSocket;
+        System.out.println(clientSocket);
 
         try {
             senderInServer = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
@@ -20,27 +25,19 @@ public class WriteMsg extends Thread {
         }
     }
 
-    public void stopWriterMsg() {
-        activWriter = false;
-    }
-
-    @Override
-    public void run() {
-        while (activWriter) {
-            String userWord;
-            try {
-                userWord = inputUser.readLine(); // сообщения с консоли
-                if (userWord.equals("stop")) {
-                    senderInServer.write("stop" + "\n");
-                    break; // выходим из цикла если пришло "stop"
-                } else {
-                    senderInServer.write(userWord + "\n"); // отправляем на сервер
-                }
-                senderInServer.flush(); // чистим
-            } catch (IOException e) {
-
-            }
-
+    public void sendMsg(String str, String nameUser) {
+        System.out.println("I try send in writeMsg " + str);
+//        Date date = new Date();
+//        Massage msg = new Massage();
+//        msg.setMassage(Constants.COMMAND_MASSAGE, nameUser, str, date.getTime());
+//        Gson gson = new Gson();
+//        String json = gson.toJson(msg);
+        try {
+//            senderInServer.write(json); // отправляем на сервер
+            senderInServer.write(str);
+            senderInServer.flush(); // чистим
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

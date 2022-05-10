@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ru.nsu.kurgin.lab5.chat.client.loaders.InterfaceLoaders;
-import ru.nsu.kurgin.lab5.chat.client.Main;
+import ru.nsu.kurgin.lab5.chat.client.Client;
 
 public class LoaderEntranceWindow extends Application implements InterfaceLoaders {
     private ControllerEntranceWindow controllerEntranceWindow;
@@ -14,7 +14,7 @@ public class LoaderEntranceWindow extends Application implements InterfaceLoader
 
     @Override
     public void start(Stage mainStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("entranceWindow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("entranceWindow.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         controllerEntranceWindow = fxmlLoader.getController();
 

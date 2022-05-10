@@ -7,6 +7,8 @@ module ru.nsu.kurgin.lab5.chat {
     requires validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires eu.hansolo.tilesfx;
+    requires com.google.gson;
+    opens ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer to com.google.gson;
 
     opens ru.nsu.kurgin.lab5.chat.client to javafx.fxml;
     exports ru.nsu.kurgin.lab5.chat.client;
@@ -14,4 +16,5 @@ module ru.nsu.kurgin.lab5.chat {
     exports ru.nsu.kurgin.lab5.chat.client.mainWindow;
     opens ru.nsu.kurgin.lab5.chat.client.entranceWindow to javafx.fxml;
     exports ru.nsu.kurgin.lab5.chat.client.entranceWindow;
+    opens ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command to com.google.gson;
 }

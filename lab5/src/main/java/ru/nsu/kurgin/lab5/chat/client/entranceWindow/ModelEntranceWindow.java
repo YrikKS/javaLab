@@ -1,6 +1,7 @@
 package ru.nsu.kurgin.lab5.chat.client.entranceWindow;
 
-import ru.nsu.kurgin.lab5.chat.client.Main;
+import ru.nsu.kurgin.lab5.chat.client.Client;
+import ru.nsu.kurgin.lab5.chat.client.Constants;
 import ru.nsu.kurgin.lab5.chat.client.mainWindow.LoaderMainWindow;
 import ru.nsu.kurgin.lab5.chat.client.observer.Observable;
 
@@ -8,10 +9,14 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class ModelEntranceWindow extends Observable {
-    public void connectToServer() {
+    public void connectToServer(String nameUser) {
         try {
-            Socket clientSocket = new Socket("localhost", 4004);
-            Main.setNewLoader(new LoaderMainWindow());
+            Socket clientSocket = new Socket("localhost", Constants.SOCKET);
+            LoaderMainWindow loaderMainWindow = new LoaderMainWindow();
+
+            loaderMainWindow.setClientSocket(clientSocket);
+            loaderMainWindow.setUserName(nameUser);
+            Client.setNewLoader(loaderMainWindow);
         } catch (IOException e) {
             notifyObservers();
         }
