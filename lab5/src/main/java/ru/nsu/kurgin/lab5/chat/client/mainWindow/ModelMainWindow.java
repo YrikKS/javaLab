@@ -1,4 +1,7 @@
 package ru.nsu.kurgin.lab5.chat.client.mainWindow;
 
-public class ModelMainWindow {
+import ru.nsu.kurgin.lab5.chat.client.observer.Observable;
+
+public class ModelMainWindow extends Observable {
+
 }

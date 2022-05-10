@@ -5,12 +5,11 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import ru.nsu.kurgin.lab5.chat.client.entranceWindow.LoaderEntranceWindow;
 import ru.nsu.kurgin.lab5.chat.client.loaders.InterfaceLoaders;
-import ru.nsu.kurgin.lab5.chat.client.mainWindow.LoaderMainWindow;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-public class main extends Application {
+public class Main extends Application {
     private static Stage stage;
 
     @Override
@@ -21,16 +20,11 @@ public class main extends Application {
         Image image = new Image(iconStream);
         stage.getIcons().add(image);
 
-        LoaderMainWindow mainWindow = new LoaderMainWindow();
-        try {
-            mainWindow.applicationStart(stage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        setNewLoader(new LoaderEntranceWindow());
     }
 
 
-    public static void setNewLoaderWithTime(InterfaceLoaders interfaceLoaders) {
+    public static void setNewLoader(InterfaceLoaders interfaceLoaders) {
         try {
             interfaceLoaders.start(stage);
         } catch (Exception e) {

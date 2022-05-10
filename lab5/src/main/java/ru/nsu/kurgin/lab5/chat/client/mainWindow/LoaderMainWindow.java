@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ru.nsu.kurgin.lab5.chat.client.loaders.InterfaceLoaders;
-import ru.nsu.kurgin.lab5.chat.client.main;
+import ru.nsu.kurgin.lab5.chat.client.Main;
 
 public class LoaderMainWindow extends Application implements InterfaceLoaders{
     private ControllerMainWindow controllerMainWindow = new ControllerMainWindow();
@@ -14,13 +14,11 @@ public class LoaderMainWindow extends Application implements InterfaceLoaders{
 
     @Override
     public void start(Stage mainStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("lab5/src/main/resources/ru/nsu/kurgin/lab5/chat.client"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mainWindow.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         controllerMainWindow = fxmlLoader.getController();
 
-//        menuController.setMenuModel(menuModel);
-//        menuModel.addObserver(menuViewer);
-//        menuViewer.setMenuModelAndController(menuModel, menuController);
+
         mainStage.setScene(scene);
         mainStage.show();
     }
