@@ -1,78 +1,132 @@
 package ru.nsu.kurgin.lab5.chat.client.mainWindow;
 
 import com.google.gson.Gson;
-import ru.nsu.kurgin.lab5.chat.client.Exeption.FabricExceptions;
+import ru.nsu.kurgin.lab5.chat.client.Client;
+import ru.nsu.kurgin.lab5.chat.client.Constants;
+import ru.nsu.kurgin.lab5.chat.server.Exeption.FabricExceptions;
+import ru.nsu.kurgin.lab5.chat.client.entranceWindow.LoaderEntranceWindow;
 import ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.*;
 import ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.ReadMsg;
 import ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.WriteMsg;
 import ru.nsu.kurgin.lab5.chat.client.observer.ObservableChat;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import static com.sun.javafx.application.PlatformImpl.exit;
 
 public class ModelMainWindow extends ObservableChat {
     private Socket clientSocket;
     private WriteMsg writeMsg;
     private ReadMsg readMsg;
     private List<String> chat = new ArrayList<>();
-//    private FabricCommand fabricCommand = new FabricCommand();
+    private FabricCommand fabricCommand = new FabricCommand();
     private String nameUser;
+    private List<String> listAllUsers = new ArrayList<>();
 
     public void setClientSocketAndUserName(Socket clientSocket, String nameUser) throws FabricExceptions {
         this.clientSocket = clientSocket;
         this.nameUser = nameUser;
-        writeMsg = new WriteMsg(clientSocket);
-//        fabricCommand.configurateFabric();
+        writeMsg = new WriteMsg(clientSocket, this);
+        fabricCommand.configurateFabric();
         readMsg = new ReadMsg(clientSocket, this);
         readMsg.start();
+
+        login();
+        sendRequest();
     }
 
-    public void stopReader() {
-        readMsg.stopRead();
+    public void sendMsg(String textMsg) {
+        Date date = new Date();
+        Massage msg = new Massage(Constants.COMMAND_MASSAGE, nameUser, textMsg, date.getTime());
+        writeMsg.sender(msg);
     }
 
-    public void sendMsg(String msg) {
-        writeMsg.sendMsg(msg, nameUser);
+    public void jsonAdapter(String json) {
+        Gson gson = new Gson();
+        fabricCommand.getCommand(gson.fromJson(json, CommandReader.class).getTypeCommand()).runCommand(this, json);
     }
 
-//    public void getMsg(String msg) {
-//        notifyObservers(msg);
-//    }
-//
-//    public void jsonAdapter(String json) {
-//        Gson gson = new Gson();
-////        fabricCommand.getCommand(gson.fromJson(json, CommandReader.class).getTypeCommand()).runCommand(this);
-//    }
-//
-//    public void login() {
-//
-//    }
-//
-//    public void logout() {
-//
-//    }
-//
-//    public void addAMassageToChat(Massage msg) {
-//        System.out.println("RABOTAET!");
-//    }
-//
-//    public void addNewMemberToChat(UserLogin listUsers) {
-//
-//    }
-//
-//    public void delMemberToChat(UserLogout userLogout) {
-//
-//    }
-//
-//    public void loadAllMemberTochat(ListUsers userLogin) {
-//
-//    }
+    public void login() {
+        Login login = new Login();
+        login.setLogin(Constants.COMMAND_LOGIN, nameUser);
+        writeMsg.sender(login);
+    }
+
+    public void sendNotificationLogout() {
+        Logout logout = new Logout();
+        logout.setLogout(nameUser);
+        writeMsg.sender(logout);
+        disconnect();
+    }
+
+    public void addAMassageToChat(Massage msg) {
+        Date date = new Date(msg.getTimeSend());
+        String dateStr = String.valueOf(date.getDate() + "." + (date.getMonth() + 1) + "." + (date.getYear() + 1900) + "  " + date.getHours() + ":" + date.getMinutes() + ":" + date.getHours());
+        notifyOfUpdateObserverChat("(" + dateStr + ") " + msg.getNameSender() + ": " + msg.getMassage());
+    }
+
+    public void addNewMemberToChat(UserLogin listUsers) {
+        listAllUsers.add(listUsers.getUserName());
+        notifyOfUpdateObserverMember(listUsers.getUserName());
+    }
+
+    public void delMemberToChat(UserLogout userLogout) {
+        listAllUsers.remove(userLogout.getUserName());
+        StringBuilder allMemberStr = new StringBuilder();
+        for (String name : listAllUsers) {
+            allMemberStr.append(name).append("\n");
+            listAllUsers.add(name);
+        }
+        notifyOfSetObserverMember(String.valueOf(allMemberStr));
+    }
+
+    public void loadAllMemberToChat(ListUsers userLogin) {
+        listAllUsers.clear();
+        listAllUsers = userLogin.getNameUsers();
+        StringBuilder allMemberStr = new StringBuilder();
+        for (String name : listAllUsers) {
+            allMemberStr.append(name).append("\n");
+        }
+        notifyOfSetObserverMember(String.valueOf(allMemberStr));
+    }
+
+    public void sendRequest() {
+        ListUsers listUsers = new ListUsers();
+        listUsers.setTypeCommand(Constants.COMMAND_LIST_USERS);
+        writeMsg.sender(listUsers);
+    }
 
 
-//    listUsers ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.ListUsers
-//    login ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.Login
-//    logout ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.Logout
-//    userLogin ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.UserLogin
-//    userLogout ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.userLogout
+    public void serverEndWork() {
+        try {
+            writeMsg.closeBuffer();
+            readMsg.closeBuffer();
+            readMsg.stopRead();
+            clientSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            exit();
+        }
+        loadEntranceWindow();
+    }
+
+    public void disconnect() {
+        try {
+            writeMsg.closeBuffer();
+            readMsg.closeBuffer();
+            readMsg.stopRead();
+            clientSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            exit();
+        }
+    }
+
+    public void loadEntranceWindow() {
+        Client.setNewLoader(new LoaderEntranceWindow());
+    }
 }

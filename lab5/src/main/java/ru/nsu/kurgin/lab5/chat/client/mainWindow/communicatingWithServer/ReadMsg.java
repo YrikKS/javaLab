@@ -4,15 +4,16 @@ import ru.nsu.kurgin.lab5.chat.client.mainWindow.ModelMainWindow;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class ReadMsg extends Thread {
     private Socket clientSocket;
     private ModelMainWindow modelMainWindow;
     private BufferedReader readerToServer = null;
-    private boolean activ = true;
+    private boolean active = true;
 
     public void stopRead() {
-        activ = false;
+        active = false;
     }
 
     public ReadMsg(Socket clientSocket, ModelMainWindow modelMainWindow) {
@@ -30,13 +31,19 @@ public class ReadMsg extends Thread {
     public void run() {
         String str;
         try {
-            while (activ) {
+            while (active) {
                 str = readerToServer.readLine(); // ждем сообщения с сервера
-                System.out.println(str);
-//                modelMainWindow.jsonAdapter(str);
+                modelMainWindow.jsonAdapter(str);
             }
+        } catch (SocketException e) {
+            e.printStackTrace();
+            modelMainWindow.serverEndWork();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void closeBuffer() throws IOException {
+        readerToServer.close();
     }
 }

@@ -1,13 +1,25 @@
-package ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command;
+package ru.nsu.kurgin.lab5.chat.server.Command;
 
-import ru.nsu.kurgin.lab5.chat.client.mainWindow.ModelMainWindow;
+import ru.nsu.kurgin.lab5.chat.server.CommandExecutor;
 
-public class Massage extends Command {
+public class Massage extends CommandGetterType {
     private String userName;
     private long timeSend;
     private String massage;
 
     public void setMassage(String typeCommand, String name, String msg, long time) {
+        setTypeCommand(typeCommand);
+        this.massage = msg;
+        this.timeSend = time;
+        this.userName = name;
+    }
+
+
+    public Massage() {
+
+    }
+
+    public Massage(String typeCommand, String name, String msg, long time) {
         setTypeCommand(typeCommand);
         this.massage = msg;
         this.timeSend = time;
@@ -26,8 +38,9 @@ public class Massage extends Command {
         return massage;
     }
 
+
     @Override
-    public void runCommand(ModelMainWindow modelMainWindow) {
-//        modelMainWindow.addAMassageToChat(this);
+    public void runCommand(CommandExecutor commandExecutor, String json) {
+
     }
 }

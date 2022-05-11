@@ -1,1 +1,6 @@
 massage ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.Massage
+listUsers ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.ListUsers
+login ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.Login
+logout ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.Logout
+userLogin ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.UserLogin
+userLogout ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.UserLogout

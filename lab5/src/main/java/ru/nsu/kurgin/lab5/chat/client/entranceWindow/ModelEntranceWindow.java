@@ -5,7 +5,7 @@ import ru.nsu.kurgin.lab5.chat.client.Constants;
 import ru.nsu.kurgin.lab5.chat.client.mainWindow.LoaderMainWindow;
 import ru.nsu.kurgin.lab5.chat.client.observer.Observable;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class ModelEntranceWindow extends Observable {

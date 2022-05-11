@@ -14,9 +14,22 @@ public class ObservableChat {
         list.remove(observer);
     }
 
-    public void notifyObservers(String msg){
+    public void notifyOfUpdateObserverChat(String msg){
         for(ObserverChat ob : list){
             ob.updateChat(msg);
         }
     }
+
+    public void notifyOfUpdateObserverMember(String stingMember){
+        for(ObserverChat ob : list){
+            ob.updateMember(stingMember);
+        }
+    }
+
+    public void notifyOfSetObserverMember(String stingMember){
+        for(ObserverChat ob : list){
+            ob.setMember(stingMember);
+        }
+    }
+
 }

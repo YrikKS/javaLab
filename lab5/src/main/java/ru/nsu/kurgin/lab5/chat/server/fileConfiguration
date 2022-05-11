@@ -1,0 +1,6 @@
+massage ru.nsu.kurgin.lab5.chat.server.Command.Massage
+listUsers ru.nsu.kurgin.lab5.chat.server.Command.ListUsers
+login ru.nsu.kurgin.lab5.chat.server.Command.Login
+logout ru.nsu.kurgin.lab5.chat.server.Command.Logout
+userLogin ru.nsu.kurgin.lab5.chat.server.Command.UserLogin
+userLogout ru.nsu.kurgin.lab5.chat.server.Command.UserLogout

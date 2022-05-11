@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ru.nsu.kurgin.lab5.chat.client.Exeption.FabricExceptions;
 import ru.nsu.kurgin.lab5.chat.client.loaders.InterfaceLoaders;
 import ru.nsu.kurgin.lab5.chat.client.Client;
 
@@ -31,21 +30,14 @@ public class LoaderMainWindow extends Application implements InterfaceLoaders {
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         controllerMainWindow = fxmlLoader.getController();
 
-//        try {
         menuModel.setClientSocketAndUserName(this.clientSocket, this.userName);
-//        } catch (FabricExceptions ex) {
-//            ex.printStackTrace();
-//            menuModel.stopReader();
-//            return;
-//        }
-
         menuModel.addObserver(controllerMainWindow);
         controllerMainWindow.setModelMainWindow(menuModel);
 
         mainStage.setScene(scene);
         mainStage.show();
 
-        mainStage.setOnCloseRequest(we -> menuModel.stopReader());
+        mainStage.setOnCloseRequest(we -> menuModel.sendNotificationLogout());
     }
 
     @Override

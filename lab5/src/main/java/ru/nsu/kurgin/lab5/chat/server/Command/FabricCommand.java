@@ -1,7 +1,8 @@
-package ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command;
+package ru.nsu.kurgin.lab5.chat.server.Command;
 
-import ru.nsu.kurgin.lab5.chat.client.Constants;
-import ru.nsu.kurgin.lab5.chat.client.Exeption.FabricExceptions;
+
+import ru.nsu.kurgin.lab5.chat.server.Constants;
+import ru.nsu.kurgin.lab5.chat.server.Exeption.FabricExceptions;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -21,12 +22,10 @@ public class FabricCommand {
                 Matcher matcher = pattern.matcher(str);
                 if (matcher.find()) {
                     String workerKey = str.substring(matcher.start(), matcher.end());
-                    System.out.println(workerKey);
                     if (matcher.find()) {
                         Class<?> executor = Class.forName(str.substring(matcher.start(), matcher.end()));
                         CommandInterface worker = (CommandInterface) executor.getDeclaredConstructor().newInstance();
 
-                        System.out.println(worker.getClass().getName());
                         commandMap.put(workerKey, worker);
                         str = reader.readLine();
                     } else {

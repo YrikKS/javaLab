@@ -17,9 +17,6 @@ public class ControllerMainWindow extends ViewMainWindow{
     private TextArea massageTextArea;
 
     @FXML
-    private TextArea membersTextArea;
-
-    @FXML
     private Font x1;
 
     @FXML
@@ -33,7 +30,6 @@ public class ControllerMainWindow extends ViewMainWindow{
 
     @FXML
     void sendMassage(MouseEvent event) {
-        System.out.println("view get " + massageTextArea.getText());
         modelMainWindow.sendMsg(massageTextArea.getText());
         massageTextArea.setText(null);
     }
