@@ -14,13 +14,10 @@ public class Server {
         ServerSocket server = new ServerSocket(PORT);
         try {
             while (true) {
-                // Блокируется до возникновения нового соединения:
                 Socket socket = server.accept();
                 try {
-                    serverList.add(new СommunicatorForClients(socket)); // добавить новое соединенние в список
+                    serverList.add(new СommunicatorForClients(socket, new CommandExecutor())); // добавить новое соединенние в список
                 } catch (IOException e) {
-                    // Если завершится неудачей, закрывается сокет,
-                    // в противном случае, нить закроет его при завершении работы:
                     socket.close();
                 }
             }

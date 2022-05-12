@@ -1,17 +1,25 @@
 package ru.nsu.kurgin.lab5.chat.server.Command;
 
-import ru.nsu.kurgin.lab5.chat.client.mainWindow.ModelMainWindow;
-import ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.CommandGetterType;
+
+import com.google.gson.Gson;
+import ru.nsu.kurgin.lab5.chat.server.CommandExecutor;
+import ru.nsu.kurgin.lab5.chat.server.Constants;
 
 public class UserLogout extends CommandGetterType {
     private String userName;
 
-    @Override
-    public void runCommand(ModelMainWindow modelMainWindow, String json) {
-        modelMainWindow.delMemberToChat(this);
-    }
-
     public String getUserName() {
         return userName;
+    }
+
+    public void setUserLogout(String userName) {
+        setTypeCommand(Constants.COMMAND_USER_LOGOUT);
+        this.userName = userName;
+    }
+
+    @Override
+    public void runCommand(CommandExecutor commandExecutor, String json) {
+        Gson gson = new Gson();
+        commandExecutor.otherClientDisconnect(gson.fromJson(json, UserLogout.class));
     }
 }

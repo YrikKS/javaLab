@@ -2,6 +2,7 @@ package ru.nsu.kurgin.lab5.chat.server.Command;
 
 import com.google.gson.Gson;
 import ru.nsu.kurgin.lab5.chat.server.CommandExecutor;
+import ru.nsu.kurgin.lab5.chat.server.Constants;
 
 import java.util.List;
 
@@ -12,8 +13,8 @@ public class ListUsers extends CommandGetterType {
 
     }
 
-    public void setListUsers(String typeCommand, List<String> name) {
-        setTypeCommand(typeCommand);
+    public void setListUsers(List<String> name) {
+        setTypeCommand(Constants.COMMAND_LIST_USERS);
         nameUsers = name;
     }
 
@@ -24,5 +25,6 @@ public class ListUsers extends CommandGetterType {
     @Override
     public void runCommand(CommandExecutor commandExecutor, String json) {
         Gson gson = new Gson();
+        commandExecutor.sendListUsers();
     }
 }

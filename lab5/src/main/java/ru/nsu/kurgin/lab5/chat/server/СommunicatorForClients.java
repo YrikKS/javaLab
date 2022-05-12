@@ -1,33 +1,41 @@
 package ru.nsu.kurgin.lab5.chat.server;
 
+import com.google.gson.Gson;
+import ru.nsu.kurgin.lab5.chat.server.Command.CommandInterface;
+
 import java.io.*;
 import java.net.Socket;
 
 public class СommunicatorForClients extends Thread {
-    private Socket socket; // сокет, через который сервер общается с клиентом,
-    // кроме него - клиент и сервер никак не связаны
-    private BufferedReader in; // поток чтения из сокета
-    private BufferedWriter out; // поток записи в сокет
+    private Socket socket;
+    private BufferedReader in;
+    private BufferedWriter out;
+    private CommandExecutor commandExecutor;
+    private boolean activ = true;
+    private String userName;
 
-    public СommunicatorForClients(Socket socket) throws IOException {
+    public void setActivFalse() {
+        this.activ = false;
+    }
+
+
+    public СommunicatorForClients(Socket socket, CommandExecutor commandExecutor) throws IOException {
         this.socket = socket;
-        // если потоку ввода/вывода приведут к генерированию исключения, оно проброситься дальше
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        start(); // вызываем run()
+        this.commandExecutor = commandExecutor;
+        commandExecutor.setCommunicator(this);
+        start();
     }
 
 
     @Override
     public void run() {
-        String word;
+        String command;
         try {
-            while (true) {
-                word = in.readLine();
-                for (СommunicatorForClients vr : Server.serverList) {
-                    vr.send(word); // отослать принятое сообщение с
-                    // привязанного клиента всем остальным включая его
-                }
+            while (activ) {
+                command = in.readLine();
+                commandExecutor.jsonAdapter(command);
             }
 
         } catch (IOException e) {
@@ -35,11 +43,47 @@ public class СommunicatorForClients extends Thread {
         }
     }
 
+
     private void send(String msg) {
         try {
             out.write(msg + "\n");
             out.flush();
-        } catch (IOException ignored) {
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
+
+
+    public void sendAll(CommandInterface command) {
+        Gson gson = new Gson();
+        String json = gson.toJson(command);
+        for (СommunicatorForClients vr : Server.serverList) {
+            vr.send(json);
+        }
+    }
+
+    public void sendSpecificClient(CommandInterface command) {
+        Gson gson = new Gson();
+        String json = gson.toJson(command);
+        send(json);
+    }
+
+    public void sendEveryoneExceptMyself (CommandInterface command) {
+        Gson gson = new Gson();
+        String json = gson.toJson(command);
+        for (СommunicatorForClients vr : Server.serverList) {
+            if (!vr.getUserName().equals(this.userName))
+                vr.send(json);
+        }
+    }
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String name) {
+        userName = name;
+    }
+
 }

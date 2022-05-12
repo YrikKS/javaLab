@@ -1,5 +1,6 @@
 package ru.nsu.kurgin.lab5.chat.server.Command;
 
+import com.google.gson.Gson;
 import ru.nsu.kurgin.lab5.chat.server.CommandExecutor;
 import ru.nsu.kurgin.lab5.chat.server.Constants;
 
@@ -17,6 +18,7 @@ public class Logout extends CommandGetterType {
 
     @Override
     public void runCommand(CommandExecutor commandExecutor, String json) {
-
+        Gson gson = new Gson();
+        commandExecutor.clientLogout(gson.fromJson(json, Logout.class));
     }
 }

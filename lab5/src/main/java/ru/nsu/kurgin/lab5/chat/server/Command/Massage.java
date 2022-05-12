@@ -1,19 +1,12 @@
 package ru.nsu.kurgin.lab5.chat.server.Command;
 
+import com.google.gson.Gson;
 import ru.nsu.kurgin.lab5.chat.server.CommandExecutor;
 
 public class Massage extends CommandGetterType {
     private String userName;
     private long timeSend;
     private String massage;
-
-    public void setMassage(String typeCommand, String name, String msg, long time) {
-        setTypeCommand(typeCommand);
-        this.massage = msg;
-        this.timeSend = time;
-        this.userName = name;
-    }
-
 
     public Massage() {
 
@@ -41,6 +34,7 @@ public class Massage extends CommandGetterType {
 
     @Override
     public void runCommand(CommandExecutor commandExecutor, String json) {
-
+        Gson gson = new Gson();
+        commandExecutor.addMassage(gson.fromJson(json, Massage.class));
     }
 }
