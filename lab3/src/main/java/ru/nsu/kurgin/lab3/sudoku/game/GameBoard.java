@@ -23,7 +23,6 @@ public class GameBoard {
 
     public void loadMomento() {
         if (moments.size() == Constants.SIZE_STACK_MOMENT_IS_ZERO || positionOnList - 1 < 0) {
-            System.out.println("moments == 0");
             return;
         }
         if (moments.size() < positionOnList - 1)
@@ -101,8 +100,6 @@ public class GameBoard {
     }
 
     public void setNumberInCell(Integer row, Integer col, Integer num) {
-        printCorrectBoard();
-        printBoard();
         numberOfEmptyCells--;
         checkMomento();
         Momento momento = new Momento();

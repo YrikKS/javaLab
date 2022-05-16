@@ -4,6 +4,9 @@ public class Constants {
     public static final String COLOR_VERSION_SELECTED_NUMBER = "-fx-background-color: #EEA66E";
     public static final String COLOR_SELECTED_NUMBER = "-fx-background-color: #FF8309"; //#DD6001
     public static final String COLOR_UNCORRECT_NUMBER = "-fx-background-color: #FF1E00"; //#DD6001
+    public static final String FONT_TYPE = "Lucida Bright Demibold";
+    public static final Integer FONT_SIZE = 38;
+
     public static final Integer SIZE_ONE_CELL = 45;
     public static final String NAME_ANCHOR_PANE = "javafx.scene.layout.AnchorPane";
     public static final String CLICK_RIGHT_MOUSE_BUTTON = "PRIMARY";
