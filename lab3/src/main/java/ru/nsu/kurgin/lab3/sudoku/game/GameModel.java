@@ -106,7 +106,7 @@ public class GameModel extends Observable implements InterfaceGameModel {
     }
 
     public void startTimer() {
-        Thread myThready = new Thread(myTimer);    //Создание потока "myThready"
+        Thread myThready = new Thread(myTimer);
         myThready.start();
     }
 

@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import ru.nsu.kurgin.lab3.sudoku.Constants;
+
+import java.lang.constant.Constable;
 
 public class GameController {
     private GameModel gameModel;
@@ -32,12 +35,12 @@ public class GameController {
 
     @FXML
     void clickMainPane(MouseEvent event) {
-        if ((event.getPickResult().getIntersectedNode().getParent().getParent()).getClass().getName().equals("javafx.scene.layout.AnchorPane")) {
-            int row = (int) event.getPickResult().getIntersectedNode().getParent().getParent().getLayoutY() / 45;
-            int col = (int) event.getPickResult().getIntersectedNode().getParent().getParent().getLayoutX() / 45;
-            if (event.getButton().name() == "PRIMARY") {
+        if ((event.getPickResult().getIntersectedNode().getParent().getParent()).getClass().getName().equals(Constants.NAME_ANCHOR_PANE)) {
+            int row = (int) event.getPickResult().getIntersectedNode().getParent().getParent().getLayoutY() / Constants.SIZE_ONE_CELL;
+            int col = (int) event.getPickResult().getIntersectedNode().getParent().getParent().getLayoutX() / Constants.SIZE_ONE_CELL;
+            if (event.getButton().name() == Constants.CLICK_RIGHT_MOUSE_BUTTON) {
                 gameModel.setOrDellNumInCell(row, col, toolNumber);
-            } else if (event.getButton().name() == "SECONDARY")
+            } else if (event.getButton().name() == Constants.CLICK_LEFT_MOUSE_BUTTON)
                 gameModel.setOrDelOneVersionInCell(row, col, toolNumber);
         }
     }
@@ -67,7 +70,6 @@ public class GameController {
 
     @FXML
     void back(MouseEvent event) {
-        System.out.println("ClickInCancsle");
         gameModel.cancellationOfAction();
     }
 

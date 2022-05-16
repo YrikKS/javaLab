@@ -1,9 +1,11 @@
 package ru.nsu.kurgin.lab3.sudoku.time;
 
+import ru.nsu.kurgin.lab3.sudoku.Constants;
+
 public class ConvertorSecondInNormal {
     static public String convertSecond(Integer seconds) {
-        int sec = seconds % 60;
-        int min = seconds / 60;
+        int sec = seconds % Constants.SECONDS_PER_MINUTE;
+        int min = seconds / Constants.SECONDS_PER_MINUTE;
         String time;
         if (min < 10)
             time = "0" + min;

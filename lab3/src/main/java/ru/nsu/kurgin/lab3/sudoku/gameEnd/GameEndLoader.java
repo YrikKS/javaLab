@@ -4,8 +4,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ru.nsu.kurgin.lab3.sudoku.Constants;
 import ru.nsu.kurgin.lab3.sudoku.main;
 import ru.nsu.kurgin.lab3.sudoku.loaders.InterfaceLoaders;
+
+import java.lang.constant.Constable;
 
 public class GameEndLoader extends Application implements InterfaceLoaders  {
     private Integer time = 0;
@@ -15,9 +18,9 @@ public class GameEndLoader extends Application implements InterfaceLoaders  {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("gameEndv2.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource(Constants.FXML_NAME_END_GAME));
 
-        Scene scene = new Scene(fxmlLoader.load(), 410, 656);
+        Scene scene = new Scene(fxmlLoader.load(), Constants.WIDTH_SCENE, Constants.HEIGHT_SCENE);
         gameEndController = fxmlLoader.getController();
         gameEndController.setTime(time);
         gameEndController.setGameEndModel(gameEndModel);

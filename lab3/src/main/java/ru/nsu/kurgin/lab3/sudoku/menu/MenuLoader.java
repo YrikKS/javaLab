@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ru.nsu.kurgin.lab3.sudoku.Constants;
 import ru.nsu.kurgin.lab3.sudoku.main;
 import ru.nsu.kurgin.lab3.sudoku.loaders.InterfaceLoaders;
 
@@ -15,9 +16,9 @@ public class MenuLoader extends Application implements InterfaceLoaders {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource("menu.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource(Constants.FXML_NAME_MENU));
 
-        Scene scene = new Scene(fxmlLoader.load(), 410, 656);
+        Scene scene = new Scene(fxmlLoader.load(), Constants.WIDTH_SCENE, Constants.HEIGHT_SCENE);
         menuController = fxmlLoader.getController();
 
         menuController.setMenuModel(menuModel);

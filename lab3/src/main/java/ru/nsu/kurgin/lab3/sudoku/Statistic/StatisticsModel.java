@@ -1,5 +1,6 @@
 package ru.nsu.kurgin.lab3.sudoku.Statistic;
 
+import ru.nsu.kurgin.lab3.sudoku.Constants;
 import ru.nsu.kurgin.lab3.sudoku.main;
 import ru.nsu.kurgin.lab3.sudoku.menu.MenuLoader;
 import ru.nsu.kurgin.lab3.sudoku.obeserver.Observable;
@@ -16,7 +17,7 @@ public class StatisticsModel extends Observable {
     public static void setNewStats(Integer time) {
         Vector<Integer> records = new Vector<>();
         records.setSize(4);
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/java/ru/nsu/kurgin/lab3/sudoku/stats.txt"))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(Constants.PATH_TO_FILE_STATS))) {
             String line = bufferedReader.readLine();
             Integer i = 0;
             while (line != null) {
@@ -28,7 +29,7 @@ public class StatisticsModel extends Observable {
             e.printStackTrace();
         }
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/main/java/ru/nsu/kurgin/lab3/sudoku/stats.txt"))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(Constants.PATH_TO_FILE_STATS))) {
             records.set(3, time);
             records.sort(Integer::compareTo);
 

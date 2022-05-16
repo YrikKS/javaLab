@@ -1,5 +1,6 @@
 package ru.nsu.kurgin.lab3.sudoku.time;
 
+import ru.nsu.kurgin.lab3.sudoku.Constants;
 import ru.nsu.kurgin.lab3.sudoku.TimerObserver.TimerObservable;
 
 public class MyTimer extends TimerObservable implements Runnable {
@@ -18,7 +19,7 @@ public class MyTimer extends TimerObservable implements Runnable {
         while (isActive) {
             notifyTimeObservers(seconds);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(Constants.MILI_CESONDS_PER_SECONDS);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

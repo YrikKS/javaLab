@@ -25,14 +25,12 @@ public class main extends Application {
     public void start(Stage mainStage) throws IOException {
         stage = mainStage;
         stage.setTitle("Sudoku");
-        InputStream iconStream = new FileInputStream("source\\IconStage.png");
+        InputStream iconStream = new FileInputStream(Constants.PATH_TO_ICON);
         Image image = new Image(iconStream);
         stage.getIcons().add(image);
         MenuLoader menuLoader = new MenuLoader();
-//        GameEndLoader gameEndLoader = new GameEndLoader();
 
         try {
-//            gameEndLoader.applicationStart(stage);
             menuLoader.applicationStart(stage);
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,14 +38,6 @@ public class main extends Application {
     }
 
     public static void setNewLoader(InterfaceLoaders interfaceLoaders) {
-        try {
-            interfaceLoaders.start(stage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void setNewLoaderWithTime(InterfaceLoaders interfaceLoaders) {
         try {
             interfaceLoaders.start(stage);
         } catch (Exception e) {

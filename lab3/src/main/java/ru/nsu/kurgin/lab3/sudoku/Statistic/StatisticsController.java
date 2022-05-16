@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import ru.nsu.kurgin.lab3.sudoku.Constants;
 import ru.nsu.kurgin.lab3.sudoku.time.ConvertorSecondInNormal;
 
 import java.io.BufferedReader;
@@ -67,8 +68,8 @@ public class StatisticsController {
     }
 
     public void setRecords(Vector<String> records) {
-        firstTimeText.setText(ConvertorSecondInNormal.convertSecond(records.get(0)));
-        secondTimeText.setText(ConvertorSecondInNormal.convertSecond(records.get(1)));
-        thirdTimeText.setText(ConvertorSecondInNormal.convertSecond(records.get(2)));
+        firstTimeText.setText(ConvertorSecondInNormal.convertSecond(records.get(Constants.TEXT_PLACE_FIRST_PEOPLE)));
+        secondTimeText.setText(ConvertorSecondInNormal.convertSecond(records.get(Constants.TEXT_PLACE_SECOND_PEOPLE)));
+        thirdTimeText.setText(ConvertorSecondInNormal.convertSecond(records.get(Constants.TEXT_PLACE_THREE_PEOPLE)));
     }
 }
