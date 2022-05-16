@@ -1,11 +1,7 @@
 package ru.nsu.kurgin.lab3.sudoku.game;
 
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -62,11 +58,11 @@ public class GameViewer implements TimerObserver, Observer {
                 } else if (gameController.getToolNumber() == -1) {
                     ((AnchorPane) lists.get(i * 9 + j)).setStyle(null);
                 } else if (gameModel.getNum(i, j) == gameController.getToolNumber())
-                    ((AnchorPane) lists.get(i * 9 + j)).setStyle(Constatnts.COLLOR_SELECTED_NUMBER);
+                    ((AnchorPane) lists.get(i * 9 + j)).setStyle(Constatnts.COLOR_SELECTED_NUMBER);
                 else {
                     ((AnchorPane) lists.get(i * 9 + j)).setStyle(null);
                     if (gameModel.getVersionNum(i, j).get(gameController.getToolNumber()) == gameController.getToolNumber())
-                        ((AnchorPane) lists.get(i * 9 + j)).setStyle(Constatnts.COLLOR_VERSION_SELECTED_NUMBER);
+                        ((AnchorPane) lists.get(i * 9 + j)).setStyle(Constatnts.COLOR_VERSION_SELECTED_NUMBER);
                     else
                         ((AnchorPane) lists.get(i * 9 + j)).setStyle(null);
                 }

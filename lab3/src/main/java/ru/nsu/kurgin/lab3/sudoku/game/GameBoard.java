@@ -1,6 +1,7 @@
 package ru.nsu.kurgin.lab3.sudoku.game;
 
 
+import ru.nsu.kurgin.lab3.sudoku.Constatnts;
 import ru.nsu.kurgin.lab3.sudoku.momento.ModifiedMainNumber;
 import ru.nsu.kurgin.lab3.sudoku.momento.ModifiedVersionNumber;
 import ru.nsu.kurgin.lab3.sudoku.momento.Momento;
@@ -21,7 +22,7 @@ public class GameBoard {
     private Integer numberOfEmptyCells = 0;
 
     public void loadMomento() {
-        if (moments.size() == 0 || positionOnList - 1 < 0) {
+        if (moments.size() == Constatnts.SIZE_STACK_MOMENT_IS_ZERO || positionOnList - 1 < 0) {
             System.out.println("moments == 0");
             return;
         }
@@ -57,7 +58,7 @@ public class GameBoard {
     public void dellAllVersionInCell(Integer row, Integer col) {
         checkMomento();
         Momento momento = new Momento();
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < Constatnts.SIZE_FIELD; i++) {
             momento.addVersionInVector(row, col, versionInCells.get(row).get(col).get(i), i, 0);
             versionInCells.get(row).get(col).set(i, 0);
         }
@@ -108,11 +109,11 @@ public class GameBoard {
         momento.addModifedMainNumber(row, col, gameBoard.get(row).get(col), num);
         gameBoard.get(row).set(col, num);
 
-        for (int k = 0; k < 9; k++) {
+        for (int k = 0; k < Constatnts.SIZE_FIELD; k++) {
             int passageThroughSquare = 0;
-            if (k < 3) passageThroughSquare = 0;
-            if (k >= 3 && k < 6) passageThroughSquare = 1;
-            if (k >= 6) passageThroughSquare = 2;
+            if (k < Constatnts.FIRST_ROWS_IN_SMALL_SQUARE) passageThroughSquare = 0;
+            if (k >= Constatnts.FIRST_ROWS_IN_SMALL_SQUARE && k < Constatnts.SECOND_ROWS_IN_SMALL_SQUARE) passageThroughSquare = 1;
+            if (k >= Constatnts.SECOND_ROWS_IN_SMALL_SQUARE) passageThroughSquare = 2;
             if (versionInCells.get(row).get(k).get(num) == (num)) {
                 versionInCells.get(row).get(k).set(num, 0);
                 momento.addVersionInVector(row, k, num, num, 0);
@@ -122,9 +123,12 @@ public class GameBoard {
                 momento.addVersionInVector(k, col, num, num, 0);
             }
 
-            if (versionInCells.get(row / 3 * 3 + k % 3).get(col / 3 * 3 + passageThroughSquare).get(num) == (num)) {
-                versionInCells.get(row / 3 * 3 + k % 3).get(col / 3 * 3 + passageThroughSquare).set(num, 0);
-                momento.addVersionInVector(row / 3 * 3 + k % 3, col / 3 * 3 + passageThroughSquare, num, num, 0);
+            if (versionInCells.get(row / Constatnts.SIZE_SMALL_SQUARE * Constatnts.SIZE_SMALL_SQUARE + k % Constatnts.SIZE_SMALL_SQUARE)
+                    .get(col / Constatnts.SIZE_SMALL_SQUARE * Constatnts.SIZE_SMALL_SQUARE + passageThroughSquare).get(num) == (num)) {
+                versionInCells.get(row / Constatnts.SIZE_SMALL_SQUARE * Constatnts.SIZE_SMALL_SQUARE + k % Constatnts.SIZE_SMALL_SQUARE).
+                        get(col / Constatnts.SIZE_SMALL_SQUARE * Constatnts.SIZE_SMALL_SQUARE + passageThroughSquare).set(num, 0);
+                momento.addVersionInVector(row / Constatnts.SIZE_SMALL_SQUARE * Constatnts.SIZE_SMALL_SQUARE + k % Constatnts.SIZE_SMALL_SQUARE,
+                        col / Constatnts.SIZE_SMALL_SQUARE * Constatnts.SIZE_SMALL_SQUARE + passageThroughSquare, num, num, 0);
             }
             if (versionInCells.get(row).get(col).get(k + 1) != 0 && versionInCells.get(row).get(col).get(k + 1) != null)
                 momento.addVersionInVector(row, col, k + 1, k + 1, k + 1);
@@ -159,70 +163,71 @@ public class GameBoard {
 
     private void generateGameBoard() {
         gameBoard = new Vector();
-        gameBoard.setSize(9);
+        gameBoard.setSize(Constatnts.SIZE_FIELD);
         correctGameBoard = new Vector<>();
-        correctGameBoard.setSize(9);
+        correctGameBoard.setSize(Constatnts.SIZE_FIELD);
         finalBoardWithOutNewNumber = new Vector();
-        finalBoardWithOutNewNumber.setSize(9);
+        finalBoardWithOutNewNumber.setSize(Constatnts.SIZE_FIELD);
 
-        for (int i = 0; i < 9; ++i) {
+        for (int i = 0; i < Constatnts.SIZE_FIELD; ++i) {
             gameBoard.set(i, new Vector());
-            gameBoard.get(i).setSize(9);
+            gameBoard.get(i).setSize(Constatnts.SIZE_FIELD);
             correctGameBoard.set(i, new Vector());
-            correctGameBoard.get(i).setSize(9);
+            correctGameBoard.get(i).setSize(Constatnts.SIZE_FIELD);
             finalBoardWithOutNewNumber.set(i, new Vector());
-            finalBoardWithOutNewNumber.get(i).setSize(9);
+            finalBoardWithOutNewNumber.get(i).setSize(Constatnts.SIZE_FIELD);
         }
 
         generateNumInGameBoard();
         changesRandomGameBoard();
-        for (int i = 0; i < 9; ++i) {
-            for (int j = 0; j < 9; ++j) {
+        for (int i = 0; i < Constatnts.SIZE_FIELD; ++i) {
+            for (int j = 0; j < Constatnts.SIZE_FIELD; ++j) {
                 correctGameBoard.get(i).set(j, gameBoard.get(i).get(j));
             }
         }
 
-        for (int i = 0; i < 9; ++i) {
-            for (int j = 0; j < 9; ++j) {
+        for (int i = 0; i < Constatnts.SIZE_FIELD; ++i) {
+            for (int j = 0; j < Constatnts.SIZE_FIELD; ++j) {
                 this.deleteCells(i, j);
             }
         }
 
         versionInCells = new Vector();
-        versionInCells.setSize(9);
+        versionInCells.setSize(Constatnts.SIZE_FIELD);
 
-        for (int i = 0; i < 9; ++i) {
+        for (int i = 0; i < Constatnts.SIZE_FIELD; ++i) {
             versionInCells.set(i, new Vector());
-            versionInCells.get(i).setSize(9);
+            versionInCells.get(i).setSize(Constatnts.SIZE_FIELD);
 
-            for (int j = 0; j < 9; ++j) {
+            for (int j = 0; j < Constatnts.SIZE_FIELD; ++j) {
                 versionInCells.get(i).set(j, new Vector());
-                versionInCells.get(i).get(j).setSize(10);
+                versionInCells.get(i).get(j).setSize(Constatnts.SIZE_VECTOR_MARK);
             }
         }
 
         createVersionInCell();
 
-        for (int i = 0; i < 9; ++i) {
-            for (int j = 0; j < 9; ++j) {
+        for (int i = 0; i < Constatnts.SIZE_FIELD; ++i) {
+            for (int j = 0; j < Constatnts.SIZE_FIELD; ++j) {
                 finalBoardWithOutNewNumber.get(i).set(j, gameBoard.get(i).get(j));
             }
         }
     }
 
     public void createVersionInCell() {
-        for (int i = 0; i < 9; i++)
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < Constatnts.SIZE_FIELD; i++)
+            for (int j = 0; j < Constatnts.SIZE_FIELD; j++) {
 
                 if (gameBoard.get(i).get(j) == 0) {
                     boolean numCanPlaceInCells = false;
-                    for (int num = 1; num < 10; num++) {
-                        for (int k = 0; k < 9; k++) {
+                    for (int num = 1; num < Constatnts.SIZE_VECTOR_MARK; num++) {
+                        for (int k = 0; k < Constatnts.SIZE_FIELD; k++) {
                             int passageThroughSquare = 0;
-                            if (k < 3) passageThroughSquare = 0;
-                            if (k >= 3 && k < 6) passageThroughSquare = 1;
-                            if (k >= 6) passageThroughSquare = 2;
-                            if (gameBoard.get(i).get(k) == num || gameBoard.get(k).get(j) == num || gameBoard.get(i / 3 * 3 + k % 3).get(j / 3 * 3 + passageThroughSquare) == num) {
+                            if (k < Constatnts.FIRST_ROWS_IN_SMALL_SQUARE) passageThroughSquare = 0;
+                            if (k >= Constatnts.FIRST_ROWS_IN_SMALL_SQUARE && k < Constatnts.SECOND_ROWS_IN_SMALL_SQUARE) passageThroughSquare = 1;
+                            if (k >= Constatnts.SECOND_ROWS_IN_SMALL_SQUARE) passageThroughSquare = 2;
+                            if (gameBoard.get(i).get(k) == num || gameBoard.get(k).get(j) == num || gameBoard.get(i / Constatnts.SIZE_SMALL_SQUARE * Constatnts.SIZE_SMALL_SQUARE + k % Constatnts.SIZE_SMALL_SQUARE)
+                                    .get(j / Constatnts.SIZE_SMALL_SQUARE * Constatnts.SIZE_SMALL_SQUARE + passageThroughSquare) == num) {
                                 numCanPlaceInCells = true;
                                 break;
                             }
@@ -238,8 +243,8 @@ public class GameBoard {
     }
 
     public boolean isCorrectGameEnd() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < Constatnts.SIZE_FIELD; i++) {
+            for (int j = 0; j < Constatnts.SIZE_FIELD; j++) {
                 if (gameBoard.get(i).get(j) != correctGameBoard.get(i).get(j))
                     return false;
             }
@@ -248,9 +253,9 @@ public class GameBoard {
     }
 
     public void dellVersionInCell() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                for (int num = 1; num < 10; num++)
+        for (int i = 0; i < Constatnts.SIZE_FIELD; i++) {
+            for (int j = 0; j < Constatnts.SIZE_FIELD; j++) {
+                for (int num = 1; num < Constatnts.SIZE_VECTOR_MARK; num++)
                     versionInCells.get(i).get(j).set(num, 0);
             }
         }
@@ -259,10 +264,10 @@ public class GameBoard {
     public void deleteCells(int k1, int k2) {
         int i, j, b, c;
         int temp = gameBoard.get(k1).get(k2);
-        int count = 9;
-        for (i = 1; i <= 9; i++) {
+        int count = Constatnts.SIZE_FIELD;
+        for (i = 1; i <= Constatnts.SIZE_FIELD; i++) {
             int flag = 1;
-            for (j = 0; j < 9; j++) {
+            for (j = 0; j < Constatnts.SIZE_FIELD; j++) {
                 if (j != k2) {
                     if (i != gameBoard.get(k1).get(j)) {
                         continue;
@@ -273,7 +278,7 @@ public class GameBoard {
                 }
             }
             if (flag == 1) {
-                for (c = 0; c < 9; c++) {
+                for (c = 0; c < Constatnts.SIZE_FIELD; c++) {
                     if (c != k1) {
                         if (i != gameBoard.get(c).get(k2)) {
                             continue;
@@ -314,27 +319,27 @@ public class GameBoard {
     }
 
     private void changesRandomGameBoard() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < Constatnts.NUMBER_OF_RANDOM_CHANGES; i++) {
             int versionChanges = (int) (Math.random() * 5);
-            if (versionChanges == 0)
-                swapRowsSmall((int) (Math.random() * 3), (int) (Math.random() * 3), (int) (Math.random() * 3));
+            if (versionChanges == Constatnts.RAND_NUMB_SWAP_ROWS_SMALL)
+                swapRowsSmall((int) (Math.random() * Constatnts.SIZE_SMALL_SQUARE), (int) (Math.random() * Constatnts.SIZE_SMALL_SQUARE), (int) (Math.random() * Constatnts.SIZE_SMALL_SQUARE));
 
-            if (versionChanges == 1)
-                swapColumsSmall((int) (Math.random() * 3), (int) (Math.random() * 3), (int) (Math.random() * 3));
+            if (versionChanges == Constatnts.RAND_NUMB_SWAP_COLUMS_SMALL)
+                swapColumsSmall((int) (Math.random() * Constatnts.SIZE_SMALL_SQUARE), (int) (Math.random() * Constatnts.SIZE_SMALL_SQUARE), (int) (Math.random() * Constatnts.SIZE_SMALL_SQUARE));
 
-            if (versionChanges == 2) swapDistrictRows((int) (Math.random() * 3), (int) (Math.random() * 3));
+            if (versionChanges == Constatnts.RAND_NUMB_SWAP_DISTRICT_ROWS) swapDistrictRows((int) (Math.random() * Constatnts.SIZE_SMALL_SQUARE), (int) (Math.random() * Constatnts.SIZE_SMALL_SQUARE));
 
-            if (versionChanges == 3) swapDistrictColum((int) (Math.random() * 3), (int) (Math.random() * 3));
+            if (versionChanges == Constatnts.RAND_NUMB_SWAP_DISTRICT_COLUMS) swapDistrictColum((int) (Math.random() * Constatnts.SIZE_SMALL_SQUARE), (int) (Math.random() * Constatnts.SIZE_SMALL_SQUARE));
 
-            if (versionChanges == 4) transpositionBoard();
+            if (versionChanges == Constatnts.RAND_NUMB_TRANSPOSITION_BOARD) transpositionBoard();
         }
     }
 
     public void generateNumInGameBoard() {
         try (BufferedReader reader = new BufferedReader(new FileReader("C:\\code\\second_year\\javaLab\\lab3\\src\\main\\java\\ru\\nsu\\kurgin\\lab3\\sudoku\\SudokuBaseTable.txt"))) {
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < Constatnts.SIZE_FIELD; i++) {
                 String readStr = reader.readLine();
-                for (int k = 0; k < 9; k++)
+                for (int k = 0; k < Constatnts.SIZE_FIELD; k++)
                     gameBoard.get(i).set(k, Integer.valueOf(readStr.substring(k, k + 1)));
             }
 
@@ -347,40 +352,40 @@ public class GameBoard {
      * @param district 0-2 один из 3 райнов
      */
     public void swapRowsSmall(Integer district, Integer firstRows, Integer secondRows) {
-        Vector<Integer> tmp = gameBoard.get(district * 3 + firstRows);
-        gameBoard.set(district * 3 + firstRows, gameBoard.get(district * 3 + secondRows));
-        gameBoard.set(district * 3 + secondRows, tmp);
+        Vector<Integer> tmp = gameBoard.get(district * Constatnts.SIZE_SMALL_SQUARE + firstRows);
+        gameBoard.set(district * Constatnts.SIZE_SMALL_SQUARE + firstRows, gameBoard.get(district * Constatnts.SIZE_SMALL_SQUARE + secondRows));
+        gameBoard.set(district * Constatnts.SIZE_SMALL_SQUARE + secondRows, tmp);
     }
 
     public void swapColumsSmall(Integer district, Integer firstColum, Integer secondColumn) {
-        for (int i = 0; i < 9; i++) {
-            Integer tmp = gameBoard.get(i).get(district * 3 + firstColum);
-            gameBoard.get(i).set(district * 3 + firstColum, gameBoard.get(i).get(district * 3 + secondColumn));
-            gameBoard.get(i).set(district * 3 + secondColumn, tmp);
+        for (int i = 0; i < Constatnts.SIZE_FIELD; i++) {
+            Integer tmp = gameBoard.get(i).get(district * Constatnts.SIZE_SMALL_SQUARE + firstColum);
+            gameBoard.get(i).set(district * Constatnts.SIZE_SMALL_SQUARE + firstColum, gameBoard.get(i).get(district * Constatnts.SIZE_SMALL_SQUARE + secondColumn));
+            gameBoard.get(i).set(district * Constatnts.SIZE_SMALL_SQUARE + secondColumn, tmp);
         }
     }
 
     public void swapDistrictRows(Integer firstDistrict, Integer secondDistrict) {
-        for (int i = 0; i < 3; i++) {
-            Vector<Integer> tmp = gameBoard.get(firstDistrict * 3 + i);
-            gameBoard.set(firstDistrict * 3 + i, gameBoard.get(secondDistrict * 3 + i));
-            gameBoard.set(secondDistrict * 3 + i, tmp);
+        for (int i = 0; i < Constatnts.SIZE_SMALL_SQUARE; i++) {
+            Vector<Integer> tmp = gameBoard.get(firstDistrict * Constatnts.SIZE_SMALL_SQUARE + i);
+            gameBoard.set(firstDistrict * Constatnts.SIZE_SMALL_SQUARE + i, gameBoard.get(secondDistrict * Constatnts.SIZE_SMALL_SQUARE + i));
+            gameBoard.set(secondDistrict * Constatnts.SIZE_SMALL_SQUARE + i, tmp);
         }
     }
 
     public void swapDistrictColum(Integer firstDistrict, Integer secondDistrict) {
-        for (int i = 0; i < 3; i++) {
-            for (int k = 0; k < 9; k++) {
-                Integer tmp = gameBoard.get(k).get(i + firstDistrict * 3);
-                gameBoard.get(k).set(firstDistrict * 3 + i, gameBoard.get(k).get(secondDistrict * 3 + i));
-                gameBoard.get(k).set(secondDistrict * 3 + i, tmp);
+        for (int i = 0; i < Constatnts.SIZE_SMALL_SQUARE; i++) {
+            for (int k = 0; k < Constatnts.SIZE_FIELD; k++) {
+                Integer tmp = gameBoard.get(k).get(i + firstDistrict * Constatnts.SIZE_SMALL_SQUARE);
+                gameBoard.get(k).set(firstDistrict * Constatnts.SIZE_SMALL_SQUARE + i, gameBoard.get(k).get(secondDistrict * Constatnts.SIZE_SMALL_SQUARE + i));
+                gameBoard.get(k).set(secondDistrict * Constatnts.SIZE_SMALL_SQUARE + i, tmp);
             }
         }
     }
 
     public void transpositionBoard() {
-        for (int i = 0; i < 9; i++) {
-            for (int k = i + 1; k < 9; k++) {
+        for (int i = 0; i < Constatnts.SIZE_FIELD; i++) {
+            for (int k = i + 1; k < Constatnts.SIZE_FIELD; k++) {
                 Integer tmp = gameBoard.get(i).get(k);
                 gameBoard.get(i).set(k, gameBoard.get(k).get(i));
                 gameBoard.get(k).set(i, tmp);
@@ -390,14 +395,14 @@ public class GameBoard {
 
     public void printBoard() {
         System.out.println("-----------------------------");
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < Constatnts.SIZE_FIELD; i++) {
             System.out.println(gameBoard.get(i));
         }
     }
 
     public void printCorrectBoard() {
         System.out.println("-----------------------------");
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < Constatnts.SIZE_FIELD; i++) {
             System.out.println(correctGameBoard.get(i));
         }
     }
