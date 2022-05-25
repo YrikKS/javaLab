@@ -32,6 +32,8 @@ public class CommandExecutor {
 
     public void clientLogout(Logout logout) {
         communicator.setActivFalse();
+        Server.delMember(communicator);
+
         UserLogout userLogout = new UserLogout();
         userLogout.setUserLogout(logout.getUserName());
         communicator.sendEveryoneExceptMyself(userLogout);
@@ -51,7 +53,7 @@ public class CommandExecutor {
     }
 
     public void otherClientDisconnect(UserLogout userLogout) {
-        communicator.sendAll(userLogout);
+        communicator.sendEveryoneExceptMyself(userLogout);
     }
 
     public void sendListUsers() {

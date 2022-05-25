@@ -31,7 +31,7 @@ public class ModelMainWindow extends ObservableChat {
         this.clientSocket = clientSocket;
         this.nameUser = nameUser;
         writeMsg = new WriteMsg(clientSocket, this);
-        fabricCommand.configurateFabric();
+        fabricCommand.configureFabric();
         readMsg = new ReadMsg(clientSocket, this);
         readMsg.start();
 
@@ -47,6 +47,7 @@ public class ModelMainWindow extends ObservableChat {
 
     public void jsonAdapter(String json) {
         Gson gson = new Gson();
+        System.out.println(json);
         fabricCommand.getCommand(gson.fromJson(json, CommandReader.class).getTypeCommand()).runCommand(this, json);
     }
 
@@ -75,11 +76,11 @@ public class ModelMainWindow extends ObservableChat {
     }
 
     public void delMemberToChat(UserLogout userLogout) {
+        System.out.println(userLogout.getUserName());
         listAllUsers.remove(userLogout.getUserName());
         StringBuilder allMemberStr = new StringBuilder();
         for (String name : listAllUsers) {
             allMemberStr.append(name).append("\n");
-            listAllUsers.add(name);
         }
         notifyOfSetObserverMember(String.valueOf(allMemberStr));
     }
@@ -103,9 +104,9 @@ public class ModelMainWindow extends ObservableChat {
 
     public void serverEndWork() {
         try {
+            readMsg.stopRead();
             writeMsg.closeBuffer();
             readMsg.closeBuffer();
-            readMsg.stopRead();
             clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -119,11 +120,16 @@ public class ModelMainWindow extends ObservableChat {
             writeMsg.closeBuffer();
             readMsg.closeBuffer();
             readMsg.stopRead();
+            readMsg.interrupt();
             clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
             exit();
         }
+    }
+
+    public Answer readAnswer() {
+        return readMsg.readAnswer();
     }
 
     public void loadEntranceWindow() {

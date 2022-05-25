@@ -3,12 +3,13 @@ package ru.nsu.kurgin.lab5.chat.server;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Server {
 
     public static final int PORT = 11111;
-    public static LinkedList<СommunicatorForClients> serverList = new LinkedList<>(); // список всех нитей
+    public static List<СommunicatorForClients> serverList = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         ServerSocket server = new ServerSocket(PORT);
@@ -16,7 +17,7 @@ public class Server {
             while (true) {
                 Socket socket = server.accept();
                 try {
-                    serverList.add(new СommunicatorForClients(socket, new CommandExecutor())); // добавить новое соединенние в список
+                    serverList.add(new СommunicatorForClients(socket, new CommandExecutor()));
                 } catch (IOException e) {
                     socket.close();
                 }
@@ -24,5 +25,9 @@ public class Server {
         } finally {
             server.close();
         }
+    }
+
+    public static void delMember(СommunicatorForClients communicatorDell) {
+        serverList.remove(communicatorDell);
     }
 }

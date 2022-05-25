@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ru.nsu.kurgin.lab5.chat.client.Constants;
 import ru.nsu.kurgin.lab5.chat.client.loaders.InterfaceLoaders;
 import ru.nsu.kurgin.lab5.chat.client.Client;
 
@@ -26,8 +27,8 @@ public class LoaderMainWindow extends Application implements InterfaceLoaders {
 
     @Override
     public void start(Stage mainStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("mainWindow.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 900, 600);
+        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource(Constants.MAIN_WINDOW_FXML));
+        Scene scene = new Scene(fxmlLoader.load(), Constants.WIDTH_WINDOW, Constants.HEIGHT_WINDOW);
         controllerMainWindow = fxmlLoader.getController();
 
         menuModel.setClientSocketAndUserName(this.clientSocket, this.userName);

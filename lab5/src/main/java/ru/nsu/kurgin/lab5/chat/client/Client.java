@@ -15,8 +15,8 @@ public class Client extends Application {
     @Override
     public void start(Stage mainStage) throws Exception {
         stage = mainStage;
-        stage.setTitle("aska");
-        InputStream iconStream = new FileInputStream("Image\\icon.png");
+        stage.setTitle(Constants.TITLE_NAME);
+        InputStream iconStream = new FileInputStream(Constants.PATH_TO_ICON);
         Image image = new Image(iconStream);
         stage.getIcons().add(image);
 

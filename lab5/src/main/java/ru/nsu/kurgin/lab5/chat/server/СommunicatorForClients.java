@@ -35,10 +35,11 @@ public class СommunicatorForClients extends Thread {
         try {
             while (activ) {
                 command = in.readLine();
-                commandExecutor.jsonAdapter(command);
+                if(activ)
+                    commandExecutor.jsonAdapter(command);
             }
-
         } catch (IOException e) {
+            System.out.println("поймал");
             e.printStackTrace();
         }
     }
@@ -46,6 +47,7 @@ public class СommunicatorForClients extends Thread {
 
     private void send(String msg) {
         try {
+            System.out.println(msg);
             out.write(msg + "\n");
             out.flush();
         } catch (IOException ex) {

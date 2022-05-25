@@ -11,7 +11,7 @@ import java.net.Socket;
 public class ModelEntranceWindow extends Observable {
     public void connectToServer(String nameUser) {
         try {
-            Socket clientSocket = new Socket("localhost", Constants.SOCKET);
+            Socket clientSocket = new Socket(Constants.HOST_NAME, Constants.SOCKET);
             LoaderMainWindow loaderMainWindow = new LoaderMainWindow();
 
             loaderMainWindow.setClientSocket(clientSocket);

@@ -4,19 +4,18 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ru.nsu.kurgin.lab5.chat.client.Constants;
 import ru.nsu.kurgin.lab5.chat.client.loaders.InterfaceLoaders;
 import ru.nsu.kurgin.lab5.chat.client.Client;
 
 public class LoaderEntranceWindow extends Application implements InterfaceLoaders {
-    private ControllerEntranceWindow controllerEntranceWindow;
-    private ViewEntranceWindow viewEntranceWindow = new ViewEntranceWindow();
-    private ModelEntranceWindow modelEntranceWindow = new ModelEntranceWindow();
+    private final ModelEntranceWindow modelEntranceWindow = new ModelEntranceWindow();
 
     @Override
     public void start(Stage mainStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("entranceWindow.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 900, 600);
-        controllerEntranceWindow = fxmlLoader.getController();
+        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource(Constants.ENTRANCE_WINDOW_FXML));
+        Scene scene = new Scene(fxmlLoader.load(), Constants.WIDTH_WINDOW, Constants.HEIGHT_WINDOW);
+        ControllerEntranceWindow controllerEntranceWindow = fxmlLoader.getController();
 
         controllerEntranceWindow.setModelEntranceWindow(modelEntranceWindow);
         modelEntranceWindow.addObserver(controllerEntranceWindow);
