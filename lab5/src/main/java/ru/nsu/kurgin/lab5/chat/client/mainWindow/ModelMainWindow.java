@@ -35,7 +35,7 @@ public class ModelMainWindow extends ObservableChat {
         fabricCommand.configureFabric();
         readMsg = new ReadMsg(clientSocket, this);
         readMsg.start();
-
+        System.out.println("add");
         login();
         sendRequest();
     }
