@@ -7,6 +7,7 @@ module ru.nsu.kurgin.lab3.sudoku {
     requires validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires eu.hansolo.tilesfx;
+    requires log4j;
 
     opens ru.nsu.kurgin.lab3.sudoku to javafx.fxml;
     exports ru.nsu.kurgin.lab3.sudoku;
@@ -18,4 +19,5 @@ module ru.nsu.kurgin.lab3.sudoku {
     opens ru.nsu.kurgin.lab3.sudoku.gameEnd to javafx.fxml;
     exports ru.nsu.kurgin.lab3.sudoku.Statistic;
     opens ru.nsu.kurgin.lab3.sudoku.Statistic to javafx.fxml;
+
 }

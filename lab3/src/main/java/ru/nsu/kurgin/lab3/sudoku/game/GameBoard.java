@@ -1,6 +1,9 @@
 package ru.nsu.kurgin.lab3.sudoku.game;
 
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import ru.nsu.kurgin.lab3.sudoku.ConstLoggerMsg;
 import ru.nsu.kurgin.lab3.sudoku.Constants;
 import ru.nsu.kurgin.lab3.sudoku.momento.ModifiedMainNumber;
 import ru.nsu.kurgin.lab3.sudoku.momento.ModifiedVersionNumber;
@@ -12,6 +15,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class GameBoard {
+    private static final Logger logger = LogManager.getLogger(GameBoard.class);
 
     private Vector<Vector<Integer>> gameBoard;
     private Vector<Vector<Integer>> correctGameBoard;
@@ -159,6 +163,7 @@ public class GameBoard {
 
 
     private void generateGameBoard() {
+        logger.info(ConstLoggerMsg.LOGGER_GENERATE_GAME_BOARD);
         gameBoard = new Vector();
         gameBoard.setSize(Constants.SIZE_FIELD);
         correctGameBoard = new Vector<>();

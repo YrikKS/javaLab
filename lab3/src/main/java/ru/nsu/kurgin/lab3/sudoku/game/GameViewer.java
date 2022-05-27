@@ -6,6 +6,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import ru.nsu.kurgin.lab3.sudoku.ConstLoggerMsg;
 import ru.nsu.kurgin.lab3.sudoku.Constants;
 import ru.nsu.kurgin.lab3.sudoku.TimerObserver.TimerObserver;
 import ru.nsu.kurgin.lab3.sudoku.obeserver.Observer;
@@ -14,6 +17,8 @@ import ru.nsu.kurgin.lab3.sudoku.time.ConvertorSecondInNormal;
 import java.util.Vector;
 
 public class GameViewer implements TimerObserver, Observer {
+    private static final Logger logger = LogManager.getLogger(GameViewer.class);
+
     private GameModel gameModel;
     private GameController gameController;
 
@@ -31,6 +36,7 @@ public class GameViewer implements TimerObserver, Observer {
 
     @Override
     public void update() {
+        logger.info(ConstLoggerMsg.LOGGER_VIEW_UPDATE);
         ObservableList<Node> lists = gameController.getMainPane().getChildren();
         for (int i = 0; i < Constants.SIZE_FIELD; i++) {
             for (int j = 0; j < Constants.SIZE_FIELD; j++) {

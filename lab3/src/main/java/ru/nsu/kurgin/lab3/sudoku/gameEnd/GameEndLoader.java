@@ -4,13 +4,18 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import ru.nsu.kurgin.lab3.sudoku.ConstLoggerMsg;
 import ru.nsu.kurgin.lab3.sudoku.Constants;
 import ru.nsu.kurgin.lab3.sudoku.main;
 import ru.nsu.kurgin.lab3.sudoku.loaders.InterfaceLoaders;
 
 import java.lang.constant.Constable;
 
-public class GameEndLoader extends Application implements InterfaceLoaders  {
+public class GameEndLoader extends Application implements InterfaceLoaders {
+    private static final Logger logger = LogManager.getLogger(GameEndLoader.class);
+
     private Integer time = 0;
     private GameEndController gameEndController;
     private GameEndModel gameEndModel = new GameEndModel();
@@ -18,6 +23,8 @@ public class GameEndLoader extends Application implements InterfaceLoaders  {
 
     @Override
     public void start(Stage stage) throws Exception {
+        logger.info(ConstLoggerMsg.LOGGER_LOAD_END_GAME);
+
         FXMLLoader fxmlLoader = new FXMLLoader(main.class.getResource(Constants.FXML_NAME_END_GAME));
 
         Scene scene = new Scene(fxmlLoader.load(), Constants.WIDTH_SCENE, Constants.HEIGHT_SCENE);
