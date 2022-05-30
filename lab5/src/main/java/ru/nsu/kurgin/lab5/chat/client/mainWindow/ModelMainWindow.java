@@ -10,6 +10,7 @@ import ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.ReadMsg
 import ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.WriteMsg;
 import ru.nsu.kurgin.lab5.chat.client.observer.ObservableChat;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class ModelMainWindow extends ObservableChat {
 
     public void addAMassageToChat(Massage msg) {
         Date date = new Date(msg.getTimeSend());
-        String dateStr = String.valueOf(date.getDate() + "." + (date.getMonth() + 1) + "." + (date.getYear() + 1900) + "  " + date.getHours() + ":" + date.getMinutes() + ":" + date.getHours());
+        String dateStr = String.valueOf(date.getDate() + "." + (date.getMonth() + 1) + "." + (date.getYear() + 1900) + "  " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
         notifyOfUpdateObserverChat("(" + dateStr + ") " + msg.getNameSender() + ": " + msg.getMassage());
     }
 
@@ -101,6 +102,11 @@ public class ModelMainWindow extends ObservableChat {
         writeMsg.sender(listUsers);
     }
 
+    public void readAnswer(Answer answer) {
+        if (answer.isError())
+            System.err.println(answer.getErrorMassage());
+    }
+
 
     public void serverEndWork() {
         try {
@@ -126,10 +132,6 @@ public class ModelMainWindow extends ObservableChat {
             e.printStackTrace();
             exit();
         }
-    }
-
-    public Answer readAnswer() {
-        return readMsg.readAnswer();
     }
 
     public void loadEntranceWindow() {

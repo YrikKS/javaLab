@@ -28,6 +28,10 @@ public class CommandExecutor {
         UserLogin userLogin = new UserLogin();
         userLogin.setUserLogin(login.getUserName());
         communicator.sendAll(userLogin);
+
+        Answer answer = new Answer();
+        answer.setError(false);
+        communicator.sendSpecificClient(answer);
     }
 
     public void clientLogout(Logout logout) {
@@ -49,6 +53,10 @@ public class CommandExecutor {
     }
 
     public void addMassage(Massage msg) {
+        Answer answer = new Answer();
+        answer.setError(false);
+        communicator.sendSpecificClient(answer);
+
         communicator.sendAll(msg);
     }
 

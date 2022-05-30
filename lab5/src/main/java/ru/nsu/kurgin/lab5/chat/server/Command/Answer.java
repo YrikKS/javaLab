@@ -1,7 +1,9 @@
-package ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command;
+package ru.nsu.kurgin.lab5.chat.server.Command;
 
 import com.google.gson.Gson;
-import ru.nsu.kurgin.lab5.chat.client.mainWindow.ModelMainWindow;
+import ru.nsu.kurgin.lab5.chat.server.CommandExecutor;
+import ru.nsu.kurgin.lab5.chat.server.Constants;
+
 
 public class Answer extends CommandGetterType {
     private boolean error = false;
@@ -15,17 +17,17 @@ public class Answer extends CommandGetterType {
         this.errorMassage = errorMassage;
     }
 
-    @Override
-    public void runCommand(ModelMainWindow modelMainWindow, String json) {
-        Gson gson = new Gson();
-        modelMainWindow.readAnswer(gson.fromJson(json, Answer.class));
-    }
-
     public boolean isError() {
         return error;
     }
 
     public void setError(boolean error) {
+        setTypeCommand(Constants.COMMAND_ANSWER);
         this.error = error;
+    }
+
+    @Override
+    public void runCommand(CommandExecutor commandExecutor, String json) {
+
     }
 }

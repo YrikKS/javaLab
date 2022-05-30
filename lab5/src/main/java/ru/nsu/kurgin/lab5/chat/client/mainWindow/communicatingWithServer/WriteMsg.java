@@ -2,7 +2,6 @@ package ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer;
 
 import com.google.gson.Gson;
 import ru.nsu.kurgin.lab5.chat.client.mainWindow.ModelMainWindow;
-import ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.Answer;
 import ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.CommandInterface;
 
 import java.io.*;
@@ -16,7 +15,6 @@ public class WriteMsg {
 
     public WriteMsg(Socket clientSocket, ModelMainWindow modelMainWindow) {
         this.modelMainWindow = modelMainWindow;
-
         try {
             senderInServer = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
         } catch (IOException e) {
@@ -39,10 +37,6 @@ public class WriteMsg {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-//        Answer answer = modelMainWindow.readAnswer();
-//        if (answer.isError()) {
-//            System.err.println(answer.getErrorMassage());
     }
 
 

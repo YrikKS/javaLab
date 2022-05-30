@@ -1,8 +1,6 @@
 package ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer;
 
-import com.google.gson.Gson;
 import ru.nsu.kurgin.lab5.chat.client.mainWindow.ModelMainWindow;
-import ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.Answer;
 
 import java.io.*;
 import java.net.Socket;
@@ -46,17 +44,4 @@ public class ReadMsg extends Thread {
         readerToServer.close();
     }
 
-    public Answer readAnswer() {
-        String str = null;
-        Gson gson = new Gson();
-        Answer answer = null;
-        try {
-            str = readerToServer.readLine();
-            answer = gson.fromJson(str, Answer.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-            modelMainWindow.serverEndWork();
-        }
-        return answer;
-    }
 }

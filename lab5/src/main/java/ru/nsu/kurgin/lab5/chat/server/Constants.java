@@ -12,4 +12,5 @@ public class Constants {
     public static final String COMMAND_LIST_USERS = "listUsers";
     public static final String COMMAND_USER_LOGIN = "userLogin";
     public static final String COMMAND_USER_LOGOUT = "userLogout";
+    public static final String COMMAND_ANSWER = "answer";
 }
