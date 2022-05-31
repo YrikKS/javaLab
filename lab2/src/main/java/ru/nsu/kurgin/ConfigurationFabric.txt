@@ -1,0 +1,10 @@
++ ru.nsu.kurgin.Workers.Sum
+* ru.nsu.kurgin.Workers.Multi
+- ru.nsu.kurgin.Workers.Minus
+DEFINE ru.nsu.kurgin.Workers.Define
+/ ru.nsu.kurgin.Workers.Div
+POP ru.nsu.kurgin.Workers.Pop
+PRINT ru.nsu.kurgin.Workers.Print
+PUSH ru.nsu.kurgin.Workers.Push
+SQRT ru.nsu.kurgin.Workers.Sqrt
+# ru.nsu.kurgin.Workers.Comment
