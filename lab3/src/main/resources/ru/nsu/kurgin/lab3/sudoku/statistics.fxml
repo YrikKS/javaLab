@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane accessibleRole="COMBO_BOX" prefHeight="656.0" prefWidth="410.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.kurgin.lab3.sudoku.Statistic.StatisticsController">
+   <children>
+      <BorderPane layoutX="127.0" layoutY="154.0" prefHeight="656.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox alignment="CENTER" prefHeight="126.0" prefWidth="506.0" style="-fx-background-color: #018681;" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics">
+                     <font>
+                        <Font name="Imprint MT Shadow" size="59.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+         </top>
+         <center>
+            <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="404.0" prefWidth="430.0" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="3 best times" translateY="50.0" wrappingWidth="146.7333984375">
+                     <font>
+                        <Font name="Eras Light ITC" size="30.0" />
+                     </font>
+                  </Text>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="60.0" translateY="50.0">
+                     <children>
+                        <Text fx:id="firstTimeText" strokeType="OUTSIDE" strokeWidth="0.0" text="01:20">
+                           <font>
+                              <Font name="Eras Light ITC" size="25.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="secondTimeText" strokeType="OUTSIDE" strokeWidth="0.0" text="10:10">
+                           <font>
+                              <Font name="Eras Light ITC" size="25.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="thirdTimeText" strokeType="OUTSIDE" strokeWidth="0.0" text="00:20">
+                           <font>
+                              <Font name="Eras Light ITC" size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <Button fx:id="buttonExit" mnemonicParsing="false" onMouseClicked="#clickInButtonExit" onMouseExited="#mouseExitExitButton" onMouseMoved="#mouseInExitButton" prefHeight="47.0" prefWidth="222.0" style="-fx-background-color: #018681;" text="Exit in menu" textFill="WHITE" translateY="200.0">
+                     <font>
+                        <Font name="Eras Light ITC" size="25.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
