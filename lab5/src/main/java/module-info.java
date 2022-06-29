@@ -16,7 +16,8 @@ module ru.nsu.kurgin.lab5.chat {
     exports ru.nsu.kurgin.lab5.chat.client.mainWindow;
     opens ru.nsu.kurgin.lab5.chat.client.entranceWindow to javafx.fxml;
     exports ru.nsu.kurgin.lab5.chat.client.entranceWindow;
-    opens ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command to com.google.gson;
+    opens ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.CommandExecutor to com.google.gson;
     opens ru.nsu.kurgin.lab5.chat.server to com.google.gson;
-    opens ru.nsu.kurgin.lab5.chat.server.Command to com.google.gson;
+    opens ru.nsu.kurgin.lab5.chat.Command to com.google.gson;
+    opens ru.nsu.kurgin.lab5.chat.server.CommandExecutorFabric to com.google.gson;
 }

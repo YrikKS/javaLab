@@ -6,10 +6,10 @@ import ru.nsu.kurgin.lab5.chat.Command.CommandGetterType;
 import java.io.*;
 import java.net.Socket;
 
-public class СommunicatorForClients extends Thread  implements Communicator{
+public class CommunicatorSerialization extends Thread implements Communicator {
     private Socket socket;
-    private BufferedReader in;
-    private BufferedWriter out;
+    private ObjectInputStream in;
+    private ObjectOutputStream out;
     private CommandExecutor commandExecutor;
     private boolean activ = true;
     private String userName;
@@ -19,10 +19,10 @@ public class СommunicatorForClients extends Thread  implements Communicator{
     }
 
 
-    public СommunicatorForClients(Socket socket, CommandExecutor commandExecutor) throws IOException {
+    public CommunicatorSerialization(Socket socket, CommandExecutor commandExecutor) throws IOException {
         this.socket = socket;
-        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        in = new ObjectInputStream(socket.getInputStream());
+        out = new ObjectOutputStream(socket.getOutputStream());
         this.commandExecutor = commandExecutor;
         commandExecutor.setCommunicator(this);
         start();
@@ -31,24 +31,27 @@ public class СommunicatorForClients extends Thread  implements Communicator{
 
     @Override
     public void run() {
-        String command;
+        CommandGetterType command = null;
         try {
             while (activ) {
-                command = in.readLine();
-                if(activ)
-                    commandExecutor.jsonAdapter(command);
+                command = (CommandGetterType) in.readObject();
+                commandExecutor.adapter(command);
             }
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             System.out.println("поймал");
             e.printStackTrace();
         }
     }
 
-
+    @Override
     public void send(String msg) {
+
+    }
+
+
+    public void send(CommandGetterType command) {
         try {
-            System.out.println(msg);
-            out.write(msg + "\n");
+            out.writeObject(command);
             out.flush();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -56,33 +59,20 @@ public class СommunicatorForClients extends Thread  implements Communicator{
     }
 
 
-    @Override
-    public void send(CommandGetterType command) {
-
-    }
-
-
     public void sendAll(CommandGetterType command) {
-        Gson gson = new Gson();
-        String json = gson.toJson(command);
         for (Communicator vr : Server.serverList) {
-            vr.send(json);
+            vr.send(command);
         }
     }
 
     public void sendSpecificClient(CommandGetterType command) {
-        Gson gson = new Gson();
-        String json = gson.toJson(command);
-//        System.out.println("!!!" + json);
-        send(json);
+        send(command);
     }
 
-    public void sendEveryoneExceptMyself (CommandGetterType command) {
-        Gson gson = new Gson();
-        String json = gson.toJson(command);
+    public void sendEveryoneExceptMyself(CommandGetterType command) {
         for (Communicator vr : Server.serverList) {
             if (!vr.getUserName().equals(this.userName))
-                vr.send(json);
+                vr.send(command);
         }
     }
 

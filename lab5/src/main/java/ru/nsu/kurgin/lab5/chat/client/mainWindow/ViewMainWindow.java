@@ -23,7 +23,7 @@ public class ViewMainWindow implements ObserverChat {
 
     @Override
     public void updateMember(String stringMembers) {
-        membersTextArea.appendText(stringMembers);
+        membersTextArea.appendText(stringMembers + "\n");
     }
 
     @Override

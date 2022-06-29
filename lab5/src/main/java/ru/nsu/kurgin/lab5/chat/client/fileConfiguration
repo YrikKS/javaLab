@@ -1,7 +1,8 @@
-massage ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.Massage
-listUsers ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.ListUsers
-login ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.Login
-logout ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.Logout
-userLogin ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.UserLogin
-userLogout ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.UserLogout
-answer ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.Answer
+massage ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.CommandExecutor.ExecutorMassage
+listUsers ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.CommandExecutor.ExecutorListUsers
+login ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.CommandExecutor.ExecutorLogin
+logout ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.CommandExecutor.ExecutorLogout
+userLogin ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.CommandExecutor.ExecutorUserLogin
+userLogout ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.CommandExecutor.ExecutorUserLogout
+answer ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.CommandExecutor.ExecutorAnswer
+bufferMessages ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.CommandExecutor.ExecutorBufferMessages

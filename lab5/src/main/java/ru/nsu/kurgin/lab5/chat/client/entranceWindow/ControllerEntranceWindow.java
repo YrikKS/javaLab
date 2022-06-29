@@ -5,17 +5,24 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 public class ControllerEntranceWindow extends ViewEntranceWindow {
+    @FXML
+    public TextField textFieldWithIP;
+
     private ModelEntranceWindow modelEntranceWindow;
 
     @FXML
     private TextField textFieldWithLogin;
 
     @FXML
-    void clickInButtonConnect(MouseEvent event) {
-        modelEntranceWindow.connectToServer(textFieldWithLogin.getText());
+    void clickInButtonConnectJson(MouseEvent event) {
+        modelEntranceWindow.connectToServer(textFieldWithLogin.getText(), textFieldWithIP.getText(), "j");
     }
 
     public void setModelEntranceWindow(ModelEntranceWindow modelEntranceWindow) {
         this.modelEntranceWindow = modelEntranceWindow;
+    }
+
+    public void clickInButtonConnect(MouseEvent mouseEvent) {
+        modelEntranceWindow.connectToServer(textFieldWithLogin.getText(), textFieldWithIP.getText(), "s");
     }
 }

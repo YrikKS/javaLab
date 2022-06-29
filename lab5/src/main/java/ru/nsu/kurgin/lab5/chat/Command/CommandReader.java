@@ -1,6 +1,6 @@
-package ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command;
+package ru.nsu.kurgin.lab5.chat.Command;
 
-public abstract class CommandGetterType implements CommandInterface{
+public class CommandReader implements CommandGetterType {
     private String typeCommand;
 
     public String getTypeCommand() {

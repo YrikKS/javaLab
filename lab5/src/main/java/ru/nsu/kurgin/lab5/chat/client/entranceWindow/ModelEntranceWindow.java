@@ -9,11 +9,12 @@ import java.io.*;
 import java.net.Socket;
 
 public class ModelEntranceWindow extends Observable {
-    public void connectToServer(String nameUser) {
+    public void connectToServer(String nameUser, String Ip, String typeConnect) {
         try {
-            Socket clientSocket = new Socket(Constants.HOST_NAME, Constants.SOCKET);
+            Socket clientSocket = new Socket(Ip, Constants.SOCKET);
             LoaderMainWindow loaderMainWindow = new LoaderMainWindow();
 
+            loaderMainWindow.setTypeConnect(typeConnect);
             loaderMainWindow.setClientSocket(clientSocket);
             loaderMainWindow.setUserName(nameUser);
             Client.setNewLoader(loaderMainWindow);

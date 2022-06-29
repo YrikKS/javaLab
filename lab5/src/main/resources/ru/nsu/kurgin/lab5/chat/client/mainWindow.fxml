@@ -48,7 +48,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.kurgin.lab5.chat.client.mainWindow.ControllerMainWindow">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.nsu.kurgin.lab5.chat.client.mainWindow.ControllerMainWindow">
   <children>
     <MenuBar opacity="0.0" prefWidth="900.0" VBox.vgrow="NEVER">
       <menus>

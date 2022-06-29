@@ -1,4 +1,4 @@
-package ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command;
+package ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.CommandExecutor;
 
 import ru.nsu.kurgin.lab5.chat.client.Constants;
 import ru.nsu.kurgin.lab5.chat.server.Exeption.FabricExceptions;
@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FabricCommand {
-    private final Map<String, CommandInterface> commandMap = new HashMap<>();
+public class FabricCommandExecutor {
+    private final Map<String, ExecutorCommandInterface> commandMap = new HashMap<>();
 
     public void configureFabric() throws FabricExceptions {
         try (BufferedReader reader = new BufferedReader(new FileReader(Constants.FABRIC_CONFIGURATION_FILE_NAME))){
@@ -23,7 +23,7 @@ public class FabricCommand {
                     String workerKey = str.substring(matcher.start(), matcher.end());
                     if (matcher.find()) {
                         Class<?> executor = Class.forName(str.substring(matcher.start(), matcher.end()));
-                        CommandInterface command = (CommandInterface) executor.getDeclaredConstructor().newInstance();
+                        ExecutorCommandInterface command = (ExecutorCommandInterface) executor.getDeclaredConstructor().newInstance();
 
                         commandMap.put(workerKey, command);
                         str = reader.readLine();
@@ -40,7 +40,7 @@ public class FabricCommand {
         }
     }
 
-    public CommandInterface getCommand(String strCommand) {
+    public ExecutorCommandInterface getCommand(String strCommand) {
         return commandMap.get(strCommand);
     }
 }

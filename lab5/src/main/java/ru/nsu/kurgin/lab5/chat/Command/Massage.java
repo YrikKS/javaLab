@@ -1,9 +1,14 @@
-package ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command;
+package ru.nsu.kurgin.lab5.chat.Command;
 
 import com.google.gson.Gson;
 import ru.nsu.kurgin.lab5.chat.client.mainWindow.ModelMainWindow;
 
-public class Massage extends CommandGetterType {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Massage implements Serializable, CommandGetterType {
+    @Serial
+    private static final long serialVersionUID = 7321104567587894221L;
     private String userName;
     private long timeSend;
     private String massage;
@@ -17,7 +22,7 @@ public class Massage extends CommandGetterType {
 
 
     public Massage() {
-
+        setTypeCommand("massage");
     }
 
     public Massage(String typeCommand, String name, String msg, long time) {
@@ -39,9 +44,13 @@ public class Massage extends CommandGetterType {
         return massage;
     }
 
-    @Override
-    public void runCommand(ModelMainWindow modelMainWindow, String json) {
-        Gson gson = new Gson();
-        modelMainWindow.addAMassageToChat(gson.fromJson(json, Massage.class));
+    private String typeCommand;
+
+    public String getTypeCommand() {
+        return typeCommand;
+    }
+
+    public void setTypeCommand(String typeCommand) {
+        this.typeCommand = typeCommand;
     }
 }

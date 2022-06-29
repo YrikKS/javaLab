@@ -1,16 +1,16 @@
 package ru.nsu.kurgin.lab5.chat.client.mainWindow;
 
 import com.google.gson.Gson;
+import ru.nsu.kurgin.lab5.chat.Command.*;
+import ru.nsu.kurgin.lab5.chat.Command.CommandGetterType;
 import ru.nsu.kurgin.lab5.chat.client.Client;
 import ru.nsu.kurgin.lab5.chat.client.Constants;
+import ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.*;
 import ru.nsu.kurgin.lab5.chat.server.Exeption.FabricExceptions;
 import ru.nsu.kurgin.lab5.chat.client.entranceWindow.LoaderEntranceWindow;
-import ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.Command.*;
-import ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.ReadMsg;
-import ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.WriteMsg;
+import ru.nsu.kurgin.lab5.chat.client.mainWindow.communicatingWithServer.CommandExecutor.*;
 import ru.nsu.kurgin.lab5.chat.client.observer.ObservableChat;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -21,23 +21,39 @@ import static com.sun.javafx.application.PlatformImpl.exit;
 
 public class ModelMainWindow extends ObservableChat {
     private Socket clientSocket;
-    private WriteMsg writeMsg;
-    private ReadMsg readMsg;
+    private Writer writeMsg;
+    private Reader readMsg;
     private List<String> chat = new ArrayList<>();
-    private FabricCommand fabricCommand = new FabricCommand();
+//    private final FabricCommand fabricCommand = new FabricCommand();
+    private final FabricCommandExecutor fabricCommandExecutor = new FabricCommandExecutor();
     private String nameUser;
     private List<String> listAllUsers = new ArrayList<>();
+    private List<Massage> listFirstMessages = new ArrayList<>();
 
-    public void setClientSocketAndUserName(Socket clientSocket, String nameUser) throws FabricExceptions {
+    public void setClientSocketAndUserName(Socket clientSocket, String nameUser, String typeConnect) throws FabricExceptions {
         this.clientSocket = clientSocket;
         this.nameUser = nameUser;
-        writeMsg = new WriteMsg(clientSocket, this);
-        fabricCommand.configureFabric();
-        readMsg = new ReadMsg(clientSocket, this);
-        readMsg.start();
+        fabricCommandExecutor.configureFabric();
+//        fabricCommand.configureFabric();
+        if(typeConnect.equals("j")) {
+            writeMsg = new WriteMsg(clientSocket, this);
+            readMsg = new ReadMsg(clientSocket, this);
+            readMsg.start();
+        } else if (typeConnect.equals("s")) {
+            writeMsg = new WriteMsgSerialization(clientSocket, this);
+            readMsg = new ReadMsgSerialization(clientSocket, this);
+            readMsg.start();
+        }
         System.out.println("add");
         login();
         sendRequest();
+        sendMessagesRequest();
+    }
+
+    public void sendMessagesRequest() {
+        BufferMessages bufferMessages = new BufferMessages();
+        bufferMessages.setTypeCommand(Constants.COMMAND_FIRST_MESSAGES);
+        writeMsg.sender(bufferMessages);
     }
 
     public void sendMsg(String textMsg) {
@@ -48,8 +64,12 @@ public class ModelMainWindow extends ObservableChat {
 
     public void jsonAdapter(String json) {
         Gson gson = new Gson();
-        System.out.println(json);
-        fabricCommand.getCommand(gson.fromJson(json, CommandReader.class).getTypeCommand()).runCommand(this, json);
+        System.out.println("!!!" + json);
+        fabricCommandExecutor.getCommand(gson.fromJson(json, CommandReader.class).getTypeCommand()).runCommand(this, json);
+    }
+
+    public void Adapter(CommandGetterType command) {
+        fabricCommandExecutor.getCommand((command).getTypeCommand()).runCommand(this, command);
     }
 
     public void login() {
@@ -65,6 +85,14 @@ public class ModelMainWindow extends ObservableChat {
         disconnect();
     }
 
+    public void loadFirstMessagesToChat(BufferMessages messagesList) {
+        listFirstMessages.clear();
+        listFirstMessages = messagesList.getMessageList();
+        for (Massage msg : listFirstMessages) {
+            addAMassageToChat(msg);
+        }
+    }
+
     public void addAMassageToChat(Massage msg) {
         Date date = new Date(msg.getTimeSend());
         String dateStr = String.valueOf(date.getDate() + "." + (date.getMonth() + 1) + "." + (date.getYear() + 1900) + "  " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
@@ -74,10 +102,15 @@ public class ModelMainWindow extends ObservableChat {
     public void addNewMemberToChat(UserLogin listUsers) {
         listAllUsers.add(listUsers.getUserName());
         notifyOfUpdateObserverMember(listUsers.getUserName());
+        Date date = new Date();
+        String dateStr = String.valueOf(date.getDate() + "." + (date.getMonth() + 1) + "." + (date.getYear() + 1900) + "  " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
+        notifyOfUpdateObserverChat("(" + dateStr + ") : " + "New user " + listUsers.getUserName());
     }
 
     public void delMemberToChat(UserLogout userLogout) {
-        System.out.println(userLogout.getUserName());
+        Date date = new Date();
+        String dateStr = String.valueOf(date.getDate() + "." + (date.getMonth() + 1) + "." + (date.getYear() + 1900) + "  " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds());
+        notifyOfUpdateObserverChat("(" + dateStr + ") " + "User exit " + userLogout.getUserName());
         listAllUsers.remove(userLogout.getUserName());
         StringBuilder allMemberStr = new StringBuilder();
         for (String name : listAllUsers) {

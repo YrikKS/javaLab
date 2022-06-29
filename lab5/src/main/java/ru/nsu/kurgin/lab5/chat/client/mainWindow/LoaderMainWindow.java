@@ -16,6 +16,10 @@ public class LoaderMainWindow extends Application implements InterfaceLoaders {
     private ModelMainWindow menuModel = new ModelMainWindow();
     private Socket clientSocket;
     private String userName;
+    private String typeConnect;
+
+    public LoaderMainWindow() {
+    }
 
     public void setClientSocket(Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -31,7 +35,7 @@ public class LoaderMainWindow extends Application implements InterfaceLoaders {
         Scene scene = new Scene(fxmlLoader.load(), Constants.WIDTH_WINDOW, Constants.HEIGHT_WINDOW);
         controllerMainWindow = fxmlLoader.getController();
 
-        menuModel.setClientSocketAndUserName(this.clientSocket, this.userName);
+        menuModel.setClientSocketAndUserName(this.clientSocket, this.userName, typeConnect);
         menuModel.addObserver(controllerMainWindow);
         controllerMainWindow.setModelMainWindow(menuModel);
 
@@ -50,4 +54,11 @@ public class LoaderMainWindow extends Application implements InterfaceLoaders {
         Application.launch();
     }
 
+    public String getTypeConnect() {
+        return typeConnect;
+    }
+
+    public void setTypeConnect(String typeConnect) {
+        this.typeConnect = typeConnect;
+    }
 }
