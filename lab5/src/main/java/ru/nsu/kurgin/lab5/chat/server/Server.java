@@ -12,9 +12,9 @@ import java.util.Scanner;
 
 public class Server {
 
-//    public static final int PORT = 11111;
+    //    public static final int PORT = 11111;
     public static List<Communicator> serverList = new ArrayList<>();
-//    public static List<CommunicatorSerialization> serverListForSerilization = new ArrayList<>();
+    //    public static List<CommunicatorSerialization> serverListForSerilization = new ArrayList<>();
     public static List<Massage> messageList = new ArrayList<>();
     public static String typeConnect;
 
@@ -23,19 +23,24 @@ public class Server {
         Scanner in = new Scanner(System.in);
         String IP = in.nextLine();
         System.out.println("write port");
-        Integer port = in.nextInt();
+        String port = in.nextLine();
         InetAddress address = InetAddress.getByName(IP);
-        ServerSocket server = new ServerSocket(port,100, address);
+        ServerSocket server = new ServerSocket(/*Integer.parseInt(port)*/11111, 100, address);
         System.out.println("Write s - if Serialization and write j - if json");
         typeConnect = in.nextLine();
+//        System.out.println(typeConnect);
         try {
             while (true) {
                 Socket socket = server.accept();
                 try {
-                    if(typeConnect.equals("j"))
+//                    if (typeConnect.equals("j")) {
+//                        System.out.println("norm");
                         serverList.add(new СommunicatorForClients(socket, new CommandExecutor()));
-                    else
-                        serverList.add(new CommunicatorSerialization(socket, new CommandExecutor()));
+//                    } else if (typeConnect.equals("s")) {
+//                        System.out.println("KAK tak");
+//                        serverList.add(new CommunicatorSerialization(socket, new CommandExecutor()));
+//                    }
+//                        System.out.println("aaa");
                 } catch (IOException e) {
                     socket.close();
                 }
@@ -50,10 +55,10 @@ public class Server {
     }
 
     public static void addMessage(Massage msg) {
-        if (messageList.toArray().length != Constants.BUFFER_SIZE){
+        if (messageList.toArray().length != Constants.BUFFER_SIZE) {
             messageList.add(msg);
         }
-        if (messageList.toArray().length == Constants.BUFFER_SIZE){
+        if (messageList.toArray().length == Constants.BUFFER_SIZE) {
             messageList.remove(0);
             messageList.add(msg);
         }

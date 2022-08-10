@@ -93,9 +93,13 @@ public class CommandExecutor {
         ListUsers listUsers = new ListUsers();
         List<String> listsName = new ArrayList<>();
         listUsers.iniziallize();
-        for (int i = 0; i < Server.serverList.size(); i++) {
-            listUsers.addName(Server.serverList.get(i).getUserName());
+//        for (int i = 0; i < Server.serverList.size(); i++) {
+//            listUsers.addName(Server.serverList.get(i).getUserName());
+//        }
+        for (Communicator ve : Server.serverList) {
+            listsName.add(ve.getUserName());
         }
+        listUsers.setListUsers(listsName);
         communicator.sendSpecificClient(listUsers);
     }
 }

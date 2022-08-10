@@ -44,7 +44,7 @@ public class ModelMainWindow extends ObservableChat {
             readMsg = new ReadMsgSerialization(clientSocket, this);
             readMsg.start();
         }
-        System.out.println("add");
+//        System.out.println("add");
         login();
         sendRequest();
         sendMessagesRequest();
@@ -64,7 +64,7 @@ public class ModelMainWindow extends ObservableChat {
 
     public void jsonAdapter(String json) {
         Gson gson = new Gson();
-        System.out.println("!!!" + json);
+//        System.out.println("!!!" + json);
         fabricCommandExecutor.getCommand(gson.fromJson(json, CommandReader.class).getTypeCommand()).runCommand(this, json);
     }
 

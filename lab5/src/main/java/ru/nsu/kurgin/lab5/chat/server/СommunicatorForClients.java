@@ -20,6 +20,7 @@ public class СommunicatorForClients extends Thread  implements Communicator{
 
 
     public СommunicatorForClients(Socket socket, CommandExecutor commandExecutor) throws IOException {
+//        System.out.println("allGood");
         this.socket = socket;
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -35,6 +36,7 @@ public class СommunicatorForClients extends Thread  implements Communicator{
         try {
             while (activ) {
                 command = in.readLine();
+//                System.out.println(command);
                 if(activ)
                     commandExecutor.jsonAdapter(command);
             }
@@ -47,7 +49,7 @@ public class СommunicatorForClients extends Thread  implements Communicator{
 
     public void send(String msg) {
         try {
-            System.out.println(msg);
+//            System.out.println(msg);
             out.write(msg + "\n");
             out.flush();
         } catch (IOException ex) {

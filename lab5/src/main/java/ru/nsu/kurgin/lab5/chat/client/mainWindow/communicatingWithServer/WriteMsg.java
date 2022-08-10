@@ -26,7 +26,7 @@ public class WriteMsg implements Writer{
     public void sender(CommandGetterType command) {
         Gson gson = new Gson();
         String json = gson.toJson(command);
-        System.out.println(json);
+//        System.out.println(json);
         try {
             senderInServer.write(json);
             senderInServer.newLine();

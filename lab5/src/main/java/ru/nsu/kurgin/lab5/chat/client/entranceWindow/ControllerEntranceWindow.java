@@ -23,6 +23,7 @@ public class ControllerEntranceWindow extends ViewEntranceWindow {
     }
 
     public void clickInButtonConnect(MouseEvent mouseEvent) {
-        modelEntranceWindow.connectToServer(textFieldWithLogin.getText(), textFieldWithIP.getText(), "s");
+//        modelEntranceWindow.connectToServer(textFieldWithLogin.getText(), textFieldWithIP.getText(), "s");
+        modelEntranceWindow.connectToServer(textFieldWithLogin.getText(), textFieldWithIP.getText(), "j");
     }
 }

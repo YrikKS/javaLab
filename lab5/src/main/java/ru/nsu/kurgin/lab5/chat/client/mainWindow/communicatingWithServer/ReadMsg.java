@@ -17,7 +17,7 @@ public class ReadMsg extends Thread implements Reader {
 
     public ReadMsg(Socket clientSocket, ModelMainWindow modelMainWindow) {
         this.modelMainWindow = modelMainWindow;
-        System.out.println(clientSocket);
+//        System.out.println(clientSocket);
         try {
             readerToServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         } catch (IOException e) {
@@ -31,7 +31,7 @@ public class ReadMsg extends Thread implements Reader {
         try {
             while (active) {
                 str = readerToServer.readLine();
-                System.out.println(str);
+//                System.out.println(str);
                 if (active)
                     modelMainWindow.jsonAdapter(str);
             }
